@@ -1,0 +1,1 @@
+This is for the cloned arduino nano it uses a different serial driver than a ft232

@@ -1,0 +1,2 @@
+MarksSD-Card Reader:
+Vcc=3.3Vdc
