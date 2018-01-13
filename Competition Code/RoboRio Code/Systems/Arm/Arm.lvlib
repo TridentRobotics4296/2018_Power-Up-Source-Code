@@ -15,10 +15,13 @@
 	<Item Name="TypeDefs" Type="Folder">
 		<Item Name="CLUSTER_ElbowInput.ctl" Type="VI" URL="../CLUSTER_ElbowInput.ctl"/>
 		<Item Name="CLUSTER_ElbowOutput.ctl" Type="VI" URL="../CLUSTER_ElbowOutput.ctl"/>
+		<Item Name="CONTROL_PositonGraph.ctl" Type="VI" URL="../CONTROL_PositonGraph.ctl"/>
 		<Item Name="ENUM_SM_Action.ctl" Type="VI" URL="../ENUM_SM_Action.ctl"/>
 		<Item Name="ENUM_SM_State.ctl" Type="VI" URL="../ENUM_SM_State.ctl"/>
 	</Item>
 	<Item Name="_Main.vi" Type="VI" URL="../_Main.vi"/>
-	<Item Name="Loop_ACT.vi" Type="VI" URL="../Loop_ACT.vi"/>
+	<Item Name="Loop_ACT_Elbow.vi" Type="VI" URL="../Loop_ACT_Elbow.vi"/>
+	<Item Name="Loop_ACT_Telescope.vi" Type="VI" URL="../Loop_ACT_Telescope.vi"/>
+	<Item Name="Loop_ACT_Wrist.vi" Type="VI" URL="../Loop_ACT_Wrist.vi"/>
 	<Item Name="Loop_SM.vi" Type="VI" URL="../Loop_SM.vi"/>
 </Library>
