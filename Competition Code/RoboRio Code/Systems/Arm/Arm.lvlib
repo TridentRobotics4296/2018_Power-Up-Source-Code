@@ -15,7 +15,6 @@
 	<Item Name="TypeDefs" Type="Folder">
 		<Item Name="CLUSTER_ElbowInput.ctl" Type="VI" URL="../CLUSTER_ElbowInput.ctl"/>
 		<Item Name="CLUSTER_ElbowOutput.ctl" Type="VI" URL="../CLUSTER_ElbowOutput.ctl"/>
-		<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../CLUSTER_PID.ctl"/>
 		<Item Name="ENUM_SM_Action.ctl" Type="VI" URL="../ENUM_SM_Action.ctl"/>
 		<Item Name="ENUM_SM_State.ctl" Type="VI" URL="../ENUM_SM_State.ctl"/>
 	</Item>
