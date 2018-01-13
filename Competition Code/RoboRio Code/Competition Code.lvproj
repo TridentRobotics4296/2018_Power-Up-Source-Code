@@ -590,6 +590,9 @@ AddOutputFilter chunkFilter
 				<Item Name="WPI_ERRSolenoidNotAllocated.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Solenoid/WPI_ERRSolenoidNotAllocated.vi"/>
 				<Item Name="WPI_SolenoidSetBool.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Solenoid/Deprecated/WPI_SolenoidSetBool.vi"/>
 				<Item Name="WPI_SolenoidClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Solenoid/WPI_SolenoidClose.vi"/>
+				<Item Name="WPI_CANTalonSRX_ChangeMode.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/CanMotor/TalonSRX/WPI_CANTalonSRX_ChangeMode.vi"/>
+				<Item Name="WPI_CANTalonSRX_APIControlMode.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/CanMotor/TalonSRX/WPI_CANTalonSRX_APIControlMode.ctl"/>
+				<Item Name="CTRE_CANTalonSRX_ConfigMotionMagic.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/CanMotor/TalonSRX/CTRE_CANTalonSRX_ConfigMotionMagic.vi"/>
 			</Item>
 			<Item Name="FRC_NetworkCommunication.dll" Type="Document" URL="FRC_NetworkCommunication.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -633,8 +636,6 @@ AddOutputFilter chunkFilter
 			<Item Name="4296_SRX_GetStatus.vi" Type="VI" URL="../Support/4296_SRX/4296_SRX_GetStatus.vi"/>
 			<Item Name="4296_SRX_Convert SRX Status Data.vi" Type="VI" URL="../Support/4296_SRX/4296_SRX_Convert SRX Status Data.vi"/>
 			<Item Name="Global_ACT Write_Data Out.vi" Type="VI" URL="../Systems/WC Drive/Global_ACT Write_Data Out.vi"/>
-			<Item Name="WC_Drive_Vbus_ArcadeDrive.vi" Type="VI" URL="/../../../../../../junk/123/West Coast/RoboRio code/Systems/WC_Drive/WC_Drive_Vbus_ArcadeDrive.vi"/>
-			<Item Name="WC_Drive_MotionMagic_ArcadeDrive.vi" Type="VI" URL="/../../../../../../junk/123/West Coast/RoboRio code/Systems/WC_Drive/WC_Drive_MotionMagic_ArcadeDrive.vi"/>
 			<Item Name="CTRE_Phoenix_MotorControl_GetDevRefData.vi" Type="VI" URL="../../../../../../../junk/123/folder123/C/Users/Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_GetDevRefData.vi"/>
 			<Item Name="CTRE_ErrorHandle.vi" Type="VI" URL="../../../../../../../junk/123/folder123/C/Users/Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Error/CTRE_ErrorHandle.vi"/>
 		</Item>
