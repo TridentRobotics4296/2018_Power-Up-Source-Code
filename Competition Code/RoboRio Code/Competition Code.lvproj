@@ -133,8 +133,6 @@ AddOutputFilter chunkFilter
 		</Item>
 		<Item Name="Phoenix-LabVIEW" Type="Folder"/>
 		<Item Name="Robot Main.vi" Type="VI" URL="../Robot Main.vi"/>
-		<Item Name="Get_Continuous_Angle.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Get_Continuous_Angle.vi"/>
-		<Item Name="Test_Window.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Advanced/Test_Window.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="8.6CompatibleGlobalVar.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/config.llb/8.6CompatibleGlobalVar.vi"/>
@@ -501,7 +499,6 @@ AddOutputFilter chunkFilter
 				<Item Name="WPI_CompressorGetEnableState.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorGetEnableState.vi"/>
 				<Item Name="WPI_CompressorStop.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorStop.vi"/>
 				<Item Name="WPI_CompressorClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorClose.vi"/>
-				<Item Name="NI_Data Type.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/Data Type/NI_Data Type.lvlib"/>
 				<Item Name="WPI_RobotDriveOpen4Motor.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveOpen4Motor.vi"/>
 				<Item Name="WPI_RobotDriveOpen4MotorWithJaguar.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveOpen4MotorWithJaguar.vi"/>
 				<Item Name="WPI_SafetyOutputConfigMenu.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/SafetyOutput/WPI_SafetyOutputConfigMenu.ctl"/>
@@ -684,18 +681,7 @@ AddOutputFilter chunkFilter
 				<Item Name="WPI_MotorControlSafetyCheck.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlSafetyCheck.vi"/>
 				<Item Name="WPI_MotorControlSafetyUpdate.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlSafetyUpdate.vi"/>
 				<Item Name="Zero Yaw.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Set/Zero Yaw.vi"/>
-				<Item Name="Z900_navX_Flags_HardwareRevTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Flags/Z900_navX_Flags_HardwareRevTypeDef.ctl"/>
-				<Item Name="Z900_navX_Flags_OmnimountConfigTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Flags/Z900_navX_Flags_OmnimountConfigTypeDef.ctl"/>
-				<Item Name="Z900_navX_Flags_OpStatusTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Flags/Z900_navX_Flags_OpStatusTypeDef.ctl"/>
-				<Item Name="Z900_navX_Flags_CalibrationStatusTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Flags/Z900_navX_Flags_CalibrationStatusTypeDef.ctl"/>
-				<Item Name="Z900_navX_SerialStreamTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Z900_navX_SerialStreamTypeDef.ctl"/>
-				<Item Name="FRIC_navX_DeviceNumbersTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/FRIC_navX_DeviceNumbersTypeDef.ctl"/>
-				<Item Name="Get_YPRHfH.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Advanced/Get_YPRHfH.vi"/>
-				<Item Name="FRIC_navX_Get_RawValues_GyroAccelMag.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Advanced/_Raw Values/FRIC_navX_Get_RawValues_GyroAccelMag.vi"/>
-				<Item Name="Zero Yaw.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Set/Zero Yaw.vi"/>
-				<Item Name="Update Serial Stream.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Set/Update Serial Stream.vi"/>
-				<Item Name="Zero Velocity.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Set/Zero Velocity.vi"/>
-				<Item Name="Zero Displacement.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Set/Zero Displacement.vi"/>
+				<Item Name="Get_Continuous_Angle.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Get_Continuous_Angle.vi"/>
 			</Item>
 			<Item Name="FRC_NetworkCommunication.dll" Type="Document" URL="FRC_NetworkCommunication.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -716,23 +702,14 @@ AddOutputFilter chunkFilter
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Cluster_Compressor.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_Compressor.ctl"/>
-			<Item Name="Cluster_Encoder_Count.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_Encoder_Count.ctl"/>
-			<Item Name="Cluster_Drive_RPM.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_Drive_RPM.ctl"/>
-			<Item Name="Cluster_SRX_Amperage.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_SRX_Amperage.ctl"/>
 			<Item Name="NET_Compressor.vi" Type="VI" URL="../../Shared/Network Variables/NET_Compressor.vi"/>
 			<Item Name="NET_Drive_Cluster.vi" Type="VI" URL="../../Shared/Network Variables/NET_Drive_Cluster.vi"/>
-			<Item Name="NET_Encoder_Values.vi" Type="VI" URL="../../Shared/Network Variables/NET_Encoder_Values.vi"/>
-			<Item Name="NET_DriveRPM.vi" Type="VI" URL="../../Shared/Network Variables/NET_DriveRPM.vi"/>
-			<Item Name="NET_SRX_Amperage.vi" Type="VI" URL="../../Shared/Network Variables/NET_SRX_Amperage.vi"/>
-			<Item Name="NET_Drive_Motion Profile.vi" Type="VI" URL="../../Shared/Network Variables/NET_Drive_Motion Profile.vi"/>
-			<Item Name="Convert Profile Point to String.vi" Type="VI" URL="../../Shared/Support/Convert Profile Point to String.vi"/>
 			<Item Name="NET_RIO_Status.vi" Type="VI" URL="../../Shared/Network Variables/NET_RIO_Status.vi"/>
 			<Item Name="NET_PCM_Status.vi" Type="VI" URL="../../Shared/Network Variables/NET_PCM_Status.vi"/>
 			<Item Name="NET_PDPStatus.vi" Type="VI" URL="../../Shared/Network Variables/NET_PDPStatus.vi"/>
 			<Item Name="NET_Gear.vi" Type="VI" URL="../../Shared/Network Variables/NET_Gear.vi"/>
 			<Item Name="4296_SRX_GetStatus.vi" Type="VI" URL="../Support/4296_SRX/4296_SRX_GetStatus.vi"/>
 			<Item Name="4296_SRX_Convert SRX Status Data.vi" Type="VI" URL="../Support/4296_SRX/4296_SRX_Convert SRX Status Data.vi"/>
-			<Item Name="Global_ACT Write_Data Out.vi" Type="VI" URL="../Systems/WC Drive/Global_ACT Write_Data Out.vi"/>
 			<Item Name="Button Tobgle Arrays.vi" Type="VI" URL="../Button Tobgle Arrays.vi"/>
 			<Item Name="CTRE_Phoenix_MotorControl_FeedbackDevice.ctl" Type="VI" URL="/C/Users/Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_FeedbackDevice.ctl"/>
 			<Item Name="CTRE_Phoenix_MotorControl_NeutralMode.ctl" Type="VI" URL="/C/Users/Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_NeutralMode.ctl"/>
