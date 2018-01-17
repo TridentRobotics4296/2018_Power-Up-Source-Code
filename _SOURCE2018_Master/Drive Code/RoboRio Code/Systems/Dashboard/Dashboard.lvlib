@@ -5,6 +5,5 @@
 	<Property Name="NI.Lib.Version" Type="Str">1.0.0.0</Property>
 	<Property Name="NI.LV.All.SourceOnly" Type="Bool">true</Property>
 	<Item Name="DB_Main.vi" Type="VI" URL="../DB_Main.vi"/>
-	<Item Name="Global_SEN Write_Data.vi" Type="VI" URL="../Global_SEN Write_Data.vi"/>
 	<Item Name="Loop_SEN.vi" Type="VI" URL="../Loop_SEN.vi"/>
 </Library>
