@@ -700,6 +700,13 @@ AddOutputFilter chunkFilter
 				<Item Name="WPI_Power Get 3Volt Rail Voltage and Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get 3Volt Rail Voltage and Current.vi"/>
 				<Item Name="Zero Velocity.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Set/Zero Velocity.vi"/>
 				<Item Name="Zero Displacement.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Set/Zero Displacement.vi"/>
+				<Item Name="NI_AALBase.lvlib" Type="Library" URL="/&lt;vilib&gt;/Analysis/NI_AALBase.lvlib"/>
+				<Item Name="WPI_RobotDriveMotorSelectorEnum.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveMotorSelectorEnum.ctl"/>
+				<Item Name="WPI_RobotDriveGetMotorControlReference.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveGetMotorControlReference.vi"/>
+				<Item Name="WPI_RobotDriveSafetyUpdate.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveSafetyUpdate.vi"/>
+				<Item Name="WPI_RobotDriveERRHolonomic.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/RobotDrive/WPI_RobotDriveERRHolonomic.vi"/>
+				<Item Name="FPGA_AIChannel.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/AI/FPGA_AIChannel.ctl"/>
+				<Item Name="Is Value Changed.vim" Type="VI" URL="/&lt;vilib&gt;/Utility/Is Value Changed.vim"/>
 			</Item>
 			<Item Name="FRC_NetworkCommunication.dll" Type="Document" URL="FRC_NetworkCommunication.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -720,6 +727,15 @@ AddOutputFilter chunkFilter
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../../Arm Code/RoboRio Code/TypeDef/CLUSTER_PID.ctl"/>
+			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
+			<Item Name="Cluster_SRX Status With Encoder.ctl" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/TypeDefs/Cluster_SRX Status With Encoder.ctl"/>
+			<Item Name="Cluster_SRX PID Values.ctl" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/TypeDefs/Cluster_SRX PID Values.ctl"/>
+			<Item Name="Utility_SRX_Standard Status Read.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Utilities/Utility_SRX_Standard Status Read.vi"/>
+			<Item Name="Cluster_SRX Status No Encoder.ctl" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/TypeDefs/Cluster_SRX Status No Encoder.ctl"/>
+			<Item Name="Cluster_SRX Limit Switches.ctl" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/TypeDefs/Cluster_SRX Limit Switches.ctl"/>
+			<Item Name="Cluster_PID Constants Standard.ctl" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/TypeDefs/Cluster_PID Constants Standard.ctl"/>
+			<Item Name="Utility Delay ON.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Utilities/Utility Delay ON.vi"/>
+			<Item Name="Global_HW_Address_Assignments.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Globals/Global_HW_Address_Assignments.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">

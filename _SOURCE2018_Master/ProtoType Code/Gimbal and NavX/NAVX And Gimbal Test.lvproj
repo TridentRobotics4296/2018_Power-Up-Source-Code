@@ -117,23 +117,31 @@ AddOutputFilter chunkFilter
 			<Item Name="Robot Global Data.vi" Type="VI" URL="../Robot Global Data.vi"/>
 			<Item Name="Teleop.vi" Type="VI" URL="../Teleop.vi"/>
 			<Item Name="Test.vi" Type="VI" URL="../Test.vi"/>
-			<Item Name="Vision Processing.vi" Type="VI" URL="../Vision Processing.vi"/>
 		</Item>
 		<Item Name="Systems" Type="Folder">
 			<Item Name="Gimbal.lvlib" Type="Library" URL="../Systems/Gimbal/Gimbal.lvlib"/>
 			<Item Name="NavX.lvlib" Type="Library" URL="../Systems/NavX/NavX.lvlib"/>
 		</Item>
-		<Item Name="TypeDef" Type="Folder" URL="../TypeDef">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
-		</Item>
-		<Item Name="Globals" Type="Folder" URL="../Globals">
-			<Property Name="NI.DISK" Type="Bool">true</Property>
-		</Item>
+		<Item Name="TypeDef" Type="Folder"/>
+		<Item Name="Globals" Type="Folder"/>
 		<Item Name="System Templates" Type="Folder" URL="../System Templates">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
 		</Item>
 		<Item Name="_SHARE ALL" Type="Folder" URL="../../../_SHARE ALL">
 			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
+		<Item Name="Vision" Type="Folder">
+			<Item Name="Vision Support Code" Type="Folder">
+				<Item Name="Camera Types.ctl" Type="VI" URL="../Systems/Vision/Vision Support Code/Camera Types.ctl"/>
+				<Item Name="Compute DistanceToTarget2.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/Compute DistanceToTarget2.vi"/>
+				<Item Name="MB Cull and Group.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/MB Cull and Group.vi"/>
+				<Item Name="Get camera FOVs.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/Get camera FOVs.vi"/>
+				<Item Name="Label Targets2.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/Label Targets2.vi"/>
+				<Item Name="Normalize Coordinates.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/Normalize Coordinates.vi"/>
+				<Item Name="Rectangle Comparison.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/Rectangle Comparison.vi"/>
+				<Item Name="Sorted Particle Report 2016.vi" Type="VI" URL="../Systems/Vision/Vision Support Code/Sorted Particle Report 2016.vi"/>
+			</Item>
+			<Item Name="Vision Processing.vi" Type="VI" URL="../Systems/Vision/Vision Processing.vi"/>
 		</Item>
 		<Item Name="Robot Main.vi" Type="VI" URL="../Robot Main.vi"/>
 		<Item Name="Test_Window.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Advanced/Test_Window.vi"/>
@@ -608,6 +616,9 @@ AddOutputFilter chunkFilter
 				<Item Name="WPI_CompressorGetEnableState.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorGetEnableState.vi"/>
 				<Item Name="WPI_CompressorStop.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorStop.vi"/>
 				<Item Name="WPI_CompressorClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorClose.vi"/>
+				<Item Name="Particle Parameters" Type="VI" URL="/&lt;vilib&gt;/vision/Image Controls.llb/Particle Parameters"/>
+				<Item Name="IMAQ GetImageSize" Type="VI" URL="/&lt;vilib&gt;/vision/Basics.llb/IMAQ GetImageSize"/>
+				<Item Name="IMAQ Overlay Rectangle" Type="VI" URL="/&lt;vilib&gt;/vision/Overlay.llb/IMAQ Overlay Rectangle"/>
 			</Item>
 			<Item Name="FRC_NetworkCommunication.dll" Type="Document" URL="FRC_NetworkCommunication.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -627,6 +638,8 @@ AddOutputFilter chunkFilter
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
+			<Item Name="CTRE_Phoenix_MotorControl_ControlMode.ctl" Type="VI" URL="../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_ControlMode.ctl"/>
+			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../../Arm Code/RoboRio Code/TypeDef/CLUSTER_PID.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
