@@ -16,7 +16,51 @@
 /*! \file */
 
 #include <jevois/Core/Module.H>
+#include <jevois/Debug/Log.H>
+#include <jevois/Util/Utils.H>
 #include <jevois/Image/RawImageOps.H>
+#include <jevois/Debug/Timer.H>
+#include <jevois/Util/Coordinates.H>
+
+#include <linux/videodev2.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <string.h>
+
+
+static jevois::ParameterCategory const ParamCateg("ObjectTracker2018 Options");
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for HSV window",
+                         jevois::Range<unsigned char>(10, 245), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for HSV window",
+                         jevois::Range<unsigned char>(10, 245), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for HSV window",
+                         jevois::Range<unsigned char>(10, 245), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
+                         10, ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(objectarea, jevois::Range<unsigned int>, "Range of object area (in pixels) to track",
+                         jevois::Range<unsigned int>(20*20, 100*100), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(erodesize, size_t, "Erosion structuring element size (pixels)",
+                         3, ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(dilatesize, size_t, "Dilation structuring element size (pixels)",
+                         8, ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(debug, bool, "Show contours of all object candidates if true",
+                         true, ParamCateg);
 
 // icon by Catalin Fertu in cinema at flaticon
 
@@ -52,11 +96,13 @@
     @license GPL v3
     @distribution Unrestricted
     @restrictions None */
-class ObjectTracker2018 : public jevois::Module
+class ObjectTracker2018 :  public jevois::StdModule,
+                      public jevois::Parameter<hrange, srange, vrange, maxnumobj, objectarea, erodesize,
+                                               dilatesize, debug>
 {
   public:
     //! Default base class constructor ok
-    using jevois::Module::Module;
+    using jevois::StdModule::StdModule;
 
     //! Virtual destructor for safe inheritance
     virtual ~ObjectTracker2018() { }
@@ -64,29 +110,100 @@ class ObjectTracker2018 : public jevois::Module
     //! Processing function
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
     {
-      // Wait for next available camera image:
-      jevois::RawImage const inimg = inframe.get(true);
+      static jevois::Timer timer("processing");
 
-      // We only support YUYV pixels in this example, any resolution:
-      inimg.require("input", inimg.width, inimg.height, V4L2_PIX_FMT_YUYV);
-      
-      // Wait for an image from our gadget driver into which we will put our results:
-      jevois::RawImage outimg = outframe.get();
+      // Wait for next available camera image. Any resolution ok, but require YUYV since we assume it for drawings:
+      jevois::RawImage inimg = inframe.get(); unsigned int const w = inimg.width, h = inimg.height;
+      inimg.require("input", w, h, V4L2_PIX_FMT_YUYV);
 
-      // Enforce that the input and output formats and image sizes match:
-      outimg.require("output", inimg.width, inimg.height, inimg.fmt);
-      
-      // Just copy the pixel data over:
-      memcpy(outimg.pixelsw<void>(), inimg.pixels<void>(), std::min(inimg.buf->length(), outimg.buf->length()));
+      timer.start();
 
-      // Print a text message:
-      jevois::rawimage::writeText(outimg, "Hello JeVois!", 100, 230, jevois::yuyv::White, jevois::rawimage::Font20x38);
-      
+      // While we process it, start a thread to wait for output frame and paste the input image into it:
+      jevois::RawImage outimg; // main thread should not use outimg until paste thread is complete
+      auto paste_fut = std::async(std::launch::async, [&]() {
+          outimg = outframe.get();
+          outimg.require("output", w, h + 14, inimg.fmt);
+          jevois::rawimage::paste(inimg, outimg, 0, 0);
+          jevois::rawimage::writeText(outimg, "Team 4296 Cube Tracker", 3, 3, jevois::yuyv::White);
+          jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, 0x8000);
+        });
+
+      // Convert input image to BGR24, then to HSV:
+      cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
+      cv::Mat imghsv; cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
+
+      // Threshold the HSV image to only keep pixels within the desired HSV range:
+      cv::Mat imgth;
+      cv::inRange(imghsv, cv::Scalar(hrange::get().min(), srange::get().min(), vrange::get().min()),
+                  cv::Scalar(hrange::get().max(), srange::get().max(), vrange::get().max()), imgth);
+
+      // Wait for paste to finish up:
+      paste_fut.get();
+
       // Let camera know we are done processing the input image:
-      inframe.done(); // NOTE: optional here, inframe destructor would call it anyway
+      inframe.done();
+      
+      // Apply morphological operations to cleanup the image noise:
+      cv::Mat erodeElement = getStructuringElement(cv::MORPH_RECT, cv::Size(erodesize::get(), erodesize::get()));
+      cv::erode(imgth, imgth, erodeElement);
 
+      cv::Mat dilateElement = getStructuringElement(cv::MORPH_RECT, cv::Size(dilatesize::get(), dilatesize::get()));
+      cv::dilate(imgth, imgth, dilateElement);
+
+      // Detect objects by finding contours:
+      std::vector<std::vector<cv::Point> > contours; std::vector<cv::Vec4i> hierarchy;
+      cv::findContours(imgth, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+
+      // If desired, draw all contours in a thread:
+      std::future<void> draw_fut;
+      if (debug::get())
+        draw_fut = std::async(std::launch::async, [&]() {
+            // We reinterpret the top portion of our YUYV output image as an opencv 8UC2 image:
+            cv::Mat outuc2(imgth.rows, imgth.cols, CV_8UC2, outimg.pixelsw<unsigned char>()); // pixel data shared
+            for (size_t i = 0; i < contours.size(); ++i)
+              cv::drawContours(outuc2, contours, i, jevois::yuyv::LightPink, 2, 8, hierarchy);
+          });
+      
+      // Identify the "good" objects:
+      int numobj = 0;
+      if (hierarchy.size() > 0 && hierarchy.size() <= maxnumobj::get())
+      {
+        double refArea = 0.0; int x = 0, y = 0; int refIdx = 0;
+
+        for (int index = 0; index >= 0; index = hierarchy[index][0])
+        {
+          cv::Moments moment = cv::moments((cv::Mat)contours[index]);
+          double area = moment.m00;
+          if (objectarea::get().contains(int(area + 0.4999)) && area > refArea)
+          { x = moment.m10 / area + 0.4999; y = moment.m01 / area + 0.4999; refArea = area; refIdx = index; }
+		  
+		  if (refArea > 0.0)
+        {
+          ++numobj;
+          jevois::rawimage::drawCircle(outimg, x, y, 20, 1, jevois::yuyv::LightGreen);
+
+          // Send coords to serial port (for arduino, etc):
+		  sendSerial("Object" + std::to_string(refIdx));
+          sendSerialContour2D(w, h, contours[refIdx], "blob");
+        }
+		
+        }
+        
+    }
+	
+	// Show number of detected objects:
+      jevois::rawimage::writeText(outimg, "Detected " + std::to_string(numobj) + " objects.",
+                                  3, h + 2, jevois::yuyv::White);
+								  
+	 // Show processing fps:
+      std::string const & fpscpu = timer.stop();
+      jevois::rawimage::writeText(outimg, fpscpu, 3, h - 13, jevois::yuyv::White);
+
+      // Possibly wait until all contours are drawn, if they had been requested:
+      if (draw_fut.valid()) draw_fut.get();
+      
       // Send the output image with our processing results to the host over USB:
-      outframe.send(); // NOTE: optional here, outframe destructor would call it anyway
+      outframe.send();
     }
 };
 
