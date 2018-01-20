@@ -109,13 +109,52 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
     //! Virtual destructor for safe inheritance
     virtual ~ObjectTracker2018() { }
-
-	void thresh_callback(int, void* );
 	
-	Mat imggray; 
+	cv::Mat imggray; 
 	int thresh = 100;
 	int max_thresh = 255;
-	cv::RNG rng(12345);
+	///cv::RNG rng(12345);
+		
+		void thresh_callback(int, void*, jevois::RawImage out)
+	{
+		using namespace cv;
+		using namespace std;
+		
+		Mat threshold_output;
+		std::vector<std::vector<cv::Point>> contours;
+		std::vector<cv::Vec4i> hierarchy;
+		
+		//Detect edge with threshold_output
+		threshold(imggray, threshold_output, thresh, 255, cv::THRESH_BINARY );
+		//Get contours
+		findContours( threshold_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+
+		/// Approximate contours to polygons + get bounding rects and circles
+		vector<vector<Point> > contours_poly( contours.size() );
+		vector<Rect> boundRect( contours.size() );
+		vector<Point2f>center( contours.size() );
+		vector<float>radius( contours.size() );
+
+		for( int i = 0; i < contours.size(); i++ )
+		{ 
+			approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+			boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+		}
+
+
+		/// Draw polygonal contour + bonding rects + circles
+		Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
+		for( int i = 0; i< contours.size(); i++ )
+			{
+			//drawContours( drawing, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
+			//rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
+			unsigned width = boundRect[i].width;
+			unsigned height = boundRect[i].height;
+			unsigned color = 0x8000;
+			jevois::rawimage::drawFilledRect(out, boundRect[i].x, boundRect[i].y, width, 
+			height, color); 
+			}
+	}	
 		
     //! Processing function - with USB output
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
@@ -141,10 +180,10 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
       // Convert input image to gray
       cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
-	  cv::cvtColor(imgbgr, imggray, cv::CV_BGR2GRAY);
-	  cv::blur(imggray, imggray, Size(3, 3))
+	  cv::cvtColor(imgbgr, imggray, CV_BGR2GRAY);
+	  cv::blur(imggray, imggray, cv::Size(3, 3));
 	  
-	  thresh_callback(0, 0);
+	  thresh_callback(0, 0, outframe.get());
 	  
 	  
 	  
@@ -222,44 +261,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
       // Send the output image with our processing results to the host over USB:
       outframe.send();
     }
-	
-	void thresh_callback(int, void*)
-	{
-		using namespace cv;
-		using namespace std;
-		
 
-		std::vector<std::vector<cv::Point>> contours;
-		std::vector<cv::Vec4i> hierarchy;
-		
-		//Detect edge with threshold_output
-		threshold(imggray, threshold_output, thresh, 255, cv::THRESH_BINARY );
-		//Get contours
-		findContours( threshold_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
-
-		/// Approximate contours to polygons + get bounding rects and circles
-		vector<vector<Point> > contours_poly( contours.size() );
-		vector<Rect> boundRect( contours.size() );
-		vector<Point2f>center( contours.size() );
-		vector<float>radius( contours.size() );
-
-		for( int i = 0; i < contours.size(); i++ )
-		{ 
-			approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-			boundRect[i] = boundingRect( Mat(contours_poly[i]) );
-		}
-
-
-		/// Draw polygonal contour + bonding rects + circles
-		Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
-		for( int i = 0; i< contours.size(); i++ )
-			{
-			Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-			//drawContours( drawing, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
-			//rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
-			jevois::rawimage::drawRect(imggray, boundRect[i].tl().x, boundRect[i].tl().y, boundRect[i].tr().x - boundRect[i].tl().x, boundRect[i].bl.y - boundRect[i].tl.y, 2, color); 
-			}
-	}
 };
 
 // Allow the module to be loaded as a shared object (.so) file:
