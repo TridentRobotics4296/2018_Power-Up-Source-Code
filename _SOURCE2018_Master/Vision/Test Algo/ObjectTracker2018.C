@@ -96,6 +96,8 @@ JEVOIS_DECLARE_PARAMETER(debug, bool, "Show contours of all object candidates if
     @license GPL v3
     @distribution Unrestricted
     @restrictions None */
+
+	
 class ObjectTracker2018 :  public jevois::StdModule,
                       public jevois::Parameter<hrange, srange, vrange, maxnumobj, objectarea, erodesize,
                                                dilatesize, debug>
@@ -104,10 +106,17 @@ class ObjectTracker2018 :  public jevois::StdModule,
     //! Default base class constructor ok
     using jevois::StdModule::StdModule;
 
+
     //! Virtual destructor for safe inheritance
     virtual ~ObjectTracker2018() { }
 
-
+	void thresh_callback(int, void* );
+	
+	Mat imggray; 
+	int thresh = 100;
+	int max_thresh = 255;
+	cv::RNG rng(12345);
+		
     //! Processing function - with USB output
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
     {
@@ -130,14 +139,19 @@ class ObjectTracker2018 :  public jevois::StdModule,
           jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, 0x8000);
         });
 
-      // Convert input image to BGR24, then to HSV:
+      // Convert input image to gray
       cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
-      cv::Mat imghsv; cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
-
-      // Threshold the HSV image to only keep pixels within the desired HSV range:
+	  cv::cvtColor(imgbgr, imggray, cv::CV_BGR2GRAY);
+	  cv::blur(imggray, imggray, Size(3, 3))
+	  
+	  thresh_callback(0, 0);
+	  
+	  
+	  
+      /*// Threshold the HSV image to only keep pixels within the desired HSV range:
       cv::Mat imgth;
       cv::inRange(imghsv, cv::Scalar(hrange::get().min(), srange::get().min(), vrange::get().min()),
-                  cv::Scalar(hrange::get().max(), srange::get().max(), vrange::get().max()), imgth);
+                  cv::Scalar(hrange::get().max(), srange::get().max(), vrange::get().max()), imgth);*/
 
       // Wait for paste to finish up:
       paste_fut.get();
@@ -145,7 +159,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
       // Let camera know we are done processing the input image:
       inframe.done();
       
-      // Apply morphological operations to cleanup the image noise:
+      /*// Apply morphological operations to cleanup the image noise:
       cv::Mat erodeElement = getStructuringElement(cv::MORPH_RECT, cv::Size(erodesize::get(), erodesize::get()));
       cv::erode(imgth, imgth, erodeElement);
 
@@ -204,10 +218,48 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
       // Possibly wait until all contours are drawn, if they had been requested:
       if (draw_fut.valid()) draw_fut.get();
-      
+      */
       // Send the output image with our processing results to the host over USB:
       outframe.send();
     }
+	
+	void thresh_callback(int, void*)
+	{
+		using namespace cv;
+		using namespace std;
+		
+
+		std::vector<std::vector<cv::Point>> contours;
+		std::vector<cv::Vec4i> hierarchy;
+		
+		//Detect edge with threshold_output
+		threshold(imggray, threshold_output, thresh, 255, cv::THRESH_BINARY );
+		//Get contours
+		findContours( threshold_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+
+		/// Approximate contours to polygons + get bounding rects and circles
+		vector<vector<Point> > contours_poly( contours.size() );
+		vector<Rect> boundRect( contours.size() );
+		vector<Point2f>center( contours.size() );
+		vector<float>radius( contours.size() );
+
+		for( int i = 0; i < contours.size(); i++ )
+		{ 
+			approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+			boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+		}
+
+
+		/// Draw polygonal contour + bonding rects + circles
+		Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
+		for( int i = 0; i< contours.size(); i++ )
+			{
+			Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+			//drawContours( drawing, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
+			//rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), color, 2, 8, 0 );
+			jevois::rawimage::drawRect(imggray, boundRect[i].tl().x, boundRect[i].tl().y, boundRect[i].tr().x - boundRect[i].tl().x, boundRect[i].bl.y - boundRect[i].tl.y, 2, color); 
+			}
+	}
 };
 
 // Allow the module to be loaded as a shared object (.so) file:
