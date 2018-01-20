@@ -180,13 +180,20 @@ class ObjectTracker2018 :  public jevois::StdModule,
           if (objectarea::get().contains(int(area + 0.4999)) && area > refArea)
           { x = moment.m10 / area + 0.4999; y = moment.m01 / area + 0.4999; refArea = area; refIdx = index; }
 		  
-		  if (refArea > 0.0)
+		  cv::Rect r = cv::boundingRect(contours[index]);
+		  int rwidth = r.br().x - r.tl().x;
+		  int rheight = r.br().y - r.tl().y;
+		  double boxRatio = rwidth/rheight;
+		  
+		  
+		  if (refArea > 0.0 && boxRatio > 0.7 && boxRatio < 1.3)
         {
           ++numobj;
           jevois::rawimage::drawCircle(outimg, x, y, 20, 1, jevois::yuyv::LightGreen);
 
           // Send coords to serial port (for arduino, etc):
 		  sendSerial("Object" + std::to_string(refIdx));
+		  sendSerial("ObjectRatio" + std::to_string(boxRatio));
           sendSerialContour2D(w, h, contours[refIdx], "blob");
         }
 		
