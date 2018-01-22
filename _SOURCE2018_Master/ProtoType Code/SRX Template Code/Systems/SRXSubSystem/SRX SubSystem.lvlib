@@ -12,7 +12,6 @@
 	<Item Name="Global_CMD.vi" Type="VI" URL="../Global_CMD.vi"/>
 	<Item Name="Global_SM Write_Data Out.vi" Type="VI" URL="../Global_SM Write_Data Out.vi"/>
 	<Item Name="Loop_ACT.vi" Type="VI" URL="../Loop_ACT.vi"/>
+	<Item Name="Loop_ProtoType Test.vi" Type="VI" URL="../Loop_ProtoType Test.vi"/>
 	<Item Name="Loop_SM.vi" Type="VI" URL="../Loop_SM.vi"/>
-	<Item Name="SRX_Config Common Closed Loop.vi" Type="VI" URL="../../../../../_SHARE ALL/RoboRio Share All/SRX Share All/SRX_Config Common Closed Loop.vi"/>
-	<Item Name="SRX_Config Sensor.vi" Type="VI" URL="../../../../../_SHARE ALL/RoboRio Share All/SRX Share All/SRX_Config Sensor.vi"/>
 </Library>
