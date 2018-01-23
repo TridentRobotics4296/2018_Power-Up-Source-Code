@@ -19,6 +19,5 @@
 	<Item Name="_Main.vi" Type="VI" URL="../_Main.vi"/>
 	<Item Name="Loop_ACT_Elbow.vi" Type="VI" URL="../Loop_ACT_Elbow.vi"/>
 	<Item Name="Loop_ACT_Telescope.vi" Type="VI" URL="../Loop_ACT_Telescope.vi"/>
-	<Item Name="Loop_ACT_Wrist.vi" Type="VI" URL="../Loop_ACT_Wrist.vi"/>
 	<Item Name="Loop_SM.vi" Type="VI" URL="../Loop_SM.vi"/>
 </Library>

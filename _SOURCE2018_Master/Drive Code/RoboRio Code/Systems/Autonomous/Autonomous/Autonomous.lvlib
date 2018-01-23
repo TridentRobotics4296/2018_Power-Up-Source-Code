@@ -4,7 +4,9 @@
 	<Property Name="NI.Lib.SourceVersion" Type="Int">385908736</Property>
 	<Property Name="NI.Lib.Version" Type="Str">1.0.0.0</Property>
 	<Property Name="NI.LV.All.SourceOnly" Type="Bool">true</Property>
+	<Item Name="AUTO_Encoder_In_Range_Check.vi" Type="VI" URL="../AUTO_Encoder_In_Range_Check.vi"/>
 	<Item Name="ENUM_Auto_Action.ctl" Type="VI" URL="../ENUM_Auto_Action.ctl"/>
 	<Item Name="ENUM_Auto_State.ctl" Type="VI" URL="../ENUM_Auto_State.ctl"/>
 	<Item Name="Loop_Auto.vi" Type="VI" URL="../Loop_Auto.vi"/>
+	<Item Name="Untitled 1 (SubVI).vi" Type="VI" URL="../Untitled 1 (SubVI).vi"/>
 </Library>
