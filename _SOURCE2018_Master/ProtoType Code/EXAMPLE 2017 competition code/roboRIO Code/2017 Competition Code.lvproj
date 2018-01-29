@@ -204,6 +204,9 @@ AddOutputFilter chunkFilter
 		<Item Name="Experimental" Type="Folder">
 			<Item Name="Teleop-MAY.vi" Type="VI" URL="../Teleop-MAY.vi"/>
 		</Item>
+		<Item Name="_SHARE ALL" Type="Folder" URL="../../../../_SHARE ALL">
+			<Property Name="NI.DISK" Type="Bool">true</Property>
+		</Item>
 		<Item Name="Robot Main.vi" Type="VI" URL="../Robot Main.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
@@ -738,8 +741,36 @@ AddOutputFilter chunkFilter
 				<Item Name="Get_Connect_Status.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Advanced/Get_Connect_Status.vi"/>
 				<Item Name="Get_Error_Status.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/Advanced/Get_Error_Status.vi"/>
 				<Item Name="Determine if Client Assigns.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/Network Tables/Determine if Client Assigns.vi"/>
-				<Item Name="FRIC_navX_DeviceNumbersTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/FRIC_navX_DeviceNumbersTypeDef.ctl"/>
-				<Item Name="Z900_navX_ProtocolTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Z900_navX_ProtocolTypeDef.ctl"/>
+				<Item Name="WPI_MotorControlRefNum Compare.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlRefNum Compare.vi"/>
+				<Item Name="WPI_MotorControlDoesDevRefExist.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlDoesDevRefExist.vi"/>
+				<Item Name="WPI_MotorControlRefNum Registry Get.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlRefNum Registry Get.vi"/>
+				<Item Name="WPI_MotorControlRefNum Registry Read Name.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlRefNum Registry Read Name.vi"/>
+				<Item Name="WPI_MotorControlSafetyError.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlSafetyError.vi"/>
+				<Item Name="WPI_MotorControlSafetyCheck.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlSafetyCheck.vi"/>
+				<Item Name="WPI_MotorControlSafetyUpdate.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/MotorControl/WPI_MotorControlSafetyUpdate.vi"/>
+				<Item Name="WPI_CompressorClose.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Compressor/WPI_CompressorClose.vi"/>
+				<Item Name="WPI_Power Get PDP EnergyPower.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PDP EnergyPower.vi"/>
+				<Item Name="WPI_CAN_PDPReceive.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPReceive.vi"/>
+				<Item Name="WPI_CAN_PDPDecode4Currents.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPDecode4Currents.vi"/>
+				<Item Name="WPI_CAN_PDPMessageIDs.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPMessageIDs.ctl"/>
+				<Item Name="WPI_CAN_PDPGlobalOps.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPGlobalOps.ctl"/>
+				<Item Name="WPI_CAN_PDPGlobal.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPGlobal.vi"/>
+				<Item Name="WPI_CAN_PDPGetAll.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPGetAll.ctl"/>
+				<Item Name="WPI_CAN_PDPCommands.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPCommands.ctl"/>
+				<Item Name="WPI_CAN_PDPSend.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/CAN/PDP/WPI_CAN_PDPSend.vi"/>
+				<Item Name="WPI_Power Get PDP Voltage.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PDP Voltage.vi"/>
+				<Item Name="WPI_Power Get PDP Faults.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PDP Faults.vi"/>
+				<Item Name="WPI_Power Get PDP Currents.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PDP Currents.vi"/>
+				<Item Name="WPI_Power Get PCM Voltage.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PCM Voltage.vi"/>
+				<Item Name="WPI_Power Get PCM Faults.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PCM Faults.vi"/>
+				<Item Name="WPI_Power Get PCM Compressor Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get PCM Compressor Current.vi"/>
+				<Item Name="WPI_Power Get roboRIO Input Voltage and Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get roboRIO Input Voltage and Current.vi"/>
+				<Item Name="WPI_Power Get roboRIO Rail Faults.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get roboRIO Rail Faults.vi"/>
+				<Item Name="FPGA_PowerStatus.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/Power/FPGA_PowerStatus.ctl"/>
+				<Item Name="WPI_Power Get Rail Voltage and Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get Rail Voltage and Current.vi"/>
+				<Item Name="WPI_Power Get 6Volt Rail Voltage and Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get 6Volt Rail Voltage and Current.vi"/>
+				<Item Name="WPI_Power Get 5Volt Rail Voltage and Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get 5Volt Rail Voltage and Current.vi"/>
+				<Item Name="WPI_Power Get 3Volt Rail Voltage and Current.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/Power/WPI_Power Get 3Volt Rail Voltage and Current.vi"/>
 			</Item>
 			<Item Name="FRC_NetworkCommunication.dll" Type="Document" URL="FRC_NetworkCommunication.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -761,7 +792,73 @@ AddOutputFilter chunkFilter
 			</Item>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="Cluster_WCDrive_SetupData.ctl" Type="VI" URL="../../../../Drive Code/RoboRio Code/Systems/WCDrive2018/Cluster_WCDrive_SetupData.ctl"/>
-			<Item Name="Global_STOP.vi" Type="VI" URL="../../../../_SHARE ALL/Global Share All/Global_STOP.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ControlMode.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_ControlMode.ctl"/>
+			<Item Name="CTRE_Phoenix_MotorControl_DevRefData.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_DevRefData.ctl"/>
+			<Item Name="CTRE_Phoenix_MotorControl_GetDevRefData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_GetDevRefData.vi"/>
+			<Item Name="WPI_CTRE_MotorController_Callback_Disable.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/WPI Callback VIs/WPI_CTRE_MotorController_Callback_Disable.vi"/>
+			<Item Name="DriverLib.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Controls/DriverLib.ctl"/>
+			<Item Name="CTRE_ErrorHandle.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Error/CTRE_ErrorHandle.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_SetSelectedSensorPosition.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Sensor/CTRE_Phoenix_MotorControl_SetSelectedSensorPosition.vi"/>
+			<Item Name="WPI_CTRE_MotorController_Callback_Enable.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/WPI Callback VIs/WPI_CTRE_MotorController_Callback_Enable.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetPercentOutput.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetPercentOutput.vi"/>
+			<Item Name="WPI_CTRE_MotorController_Callback_SetOutput.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/WPI Callback VIs/WPI_CTRE_MotorController_Callback_SetOutput.vi"/>
+			<Item Name="CTRE_LibraryCall_ErrorHandle.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Error/CTRE_LibraryCall_ErrorHandle.vi"/>
+			<Item Name="CTRE_Phoenix_TalonSRX_Open.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Talon SRX/CTRE_Phoenix_TalonSRX_Open.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_RefNumRegistrySet.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_RefNumRegistrySet.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_UpdateRefNum.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_UpdateRefNum.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_SetInverted.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_SetInverted.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_EnableCurrentLimit.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Current Limit/CTRE_Phoenix_MotorControl_EnableCurrentLimit.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigPeakCurrentLimit.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Current Limit/CTRE_Phoenix_MotorControl_ConfigPeakCurrentLimit.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigContinuousCurrentLimit.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Current Limit/CTRE_Phoenix_MotorControl_ConfigContinuousCurrentLimit.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_LimitSwitchNormal.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_LimitSwitchNormal.ctl"/>
+			<Item Name="CTRE_Phoenix_MotorControl_LimitSwitchSource_Local.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_LimitSwitchSource_Local.ctl"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigReverseLimitSwitch_Enhanced.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Limit Switch/CTRE_Phoenix_MotorControl_ConfigReverseLimitSwitch_Enhanced.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigForwardLimitSwitch_Enhanced.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Limit Switch/CTRE_Phoenix_MotorControl_ConfigForwardLimitSwitch_Enhanced.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigMotionMagic.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Closed Loop/CTRE_Phoenix_MotorControl_ConfigMotionMagic.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigClosedLoopConstants.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Closed Loop/CTRE_Phoenix_MotorControl_ConfigClosedLoopConstants.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigMaxIntegralAccumulator.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Closed Loop/CTRE_Phoenix_MotorControl_ConfigMaxIntegralAccumulator.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigAllowableClosedLoopError.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Closed Loop/CTRE_Phoenix_MotorControl_ConfigAllowableClosedLoopError.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_FeedbackDevice.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_FeedbackDevice.ctl"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigSelectedFeedbackSensor_Enhanced.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Sensor/CTRE_Phoenix_MotorControl_ConfigSelectedFeedbackSensor_Enhanced.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_SetSensorPhase.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Sensor/CTRE_Phoenix_MotorControl_SetSensorPhase.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigSoftLimitThresholds.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Limit Switch/CTRE_Phoenix_MotorControl_ConfigSoftLimitThresholds.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigSoftLimitEnables.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Limit Switch/CTRE_Phoenix_MotorControl_ConfigSoftLimitEnables.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_NeutralMode.ctl" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Controls/CTRE_Phoenix_MotorControl_NeutralMode.ctl"/>
+			<Item Name="CTRE_Phoenix_MotorControl_SetNeutralMode.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_SetNeutralMode.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_EnableVoltageCompensation.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Output Config/CTRE_Phoenix_MotorControl_EnableVoltageCompensation.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigVoltageCompensation.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Output Config/CTRE_Phoenix_MotorControl_ConfigVoltageCompensation.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigPeakOutput.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Output Config/CTRE_Phoenix_MotorControl_ConfigPeakOutput.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigNominalOutput.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Output Config/CTRE_Phoenix_MotorControl_ConfigNominalOutput.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigNeutralDeadband.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Output Config/CTRE_Phoenix_MotorControl_ConfigNeutralDeadband.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_ConfigClosedLoopRamp.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Output Config/CTRE_Phoenix_MotorControl_ConfigClosedLoopRamp.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_Get_Enhanced.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorController_Get_Enhanced.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetVoltage.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetVoltage.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetBusVoltage.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetBusVoltage.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetOutputCurrent_Enhanced.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetOutputCurrent_Enhanced.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetSelectedSensorData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetSelectedSensorData.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetSelectedSensorVelocity.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetSelectedSensorVelocity.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetSelectedSensorPosition.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetSelectedSensorPosition.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetClosedLoopData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetClosedLoopData.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetIntegralAccumulator.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetIntegralAccumulator.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetErrorDerivative.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetErrorDerivative.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetClosedLoopError.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetClosedLoopError.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetClosedLoopTarget.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetClosedLoopTarget.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetTemperature.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetTemperature.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetGeneralStatus.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetGeneralStatus.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetDeviceID.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetDeviceID.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetHasResetOccurred.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetHasResetOccurred.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetFirmwareVersion.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CCI/CTRE_Phoenix_MotorController_GetFirmwareVersion.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetAnalogData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetAnalogData.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetLimitSwitchStates.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetLimitSwitchStates.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetPulseWidthAll.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetPulseWidthAll.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetQuadratureData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetQuadratureData.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetQuadPinData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetQuadPinData.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetFaults.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Errors and Faults/CTRE_Phoenix_MotorController_GetFaults.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetStickyFaults.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Errors and Faults/CTRE_Phoenix_MotorController_GetStickyFaults.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_GetLastError.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Errors and Faults/CTRE_Phoenix_MotorController_GetLastError.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_SetIntegralAccumulator.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Closed Loop/CTRE_Phoenix_MotorControl_SetIntegralAccumulator.vi"/>
+			<Item Name="CTRE_Phoenix_MotorController_ClearStickyFaults.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Errors and Faults/CTRE_Phoenix_MotorController_ClearStickyFaults.vi"/>
+			<Item Name="CTRE_Phoenix_MotorControl_Set.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/CTRE_Phoenix_MotorControl_Set.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
