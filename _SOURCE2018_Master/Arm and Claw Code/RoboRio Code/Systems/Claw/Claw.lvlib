@@ -8,12 +8,14 @@
 
 </Property>
 	<Item Name="_Main.vi" Type="VI" URL="../_Main.vi"/>
+	<Item Name="CLUSTER_Limit_Switch_Output.ctl" Type="VI" URL="../CLUSTER_Limit_Switch_Output.ctl"/>
 	<Item Name="ENUM_SM_Action.ctl" Type="VI" URL="../ENUM_SM_Action.ctl"/>
 	<Item Name="ENUM_SM_State.ctl" Type="VI" URL="../ENUM_SM_State.ctl"/>
 	<Item Name="Global_ACT Write_Data Out.vi" Type="VI" URL="../Global_ACT Write_Data Out.vi"/>
 	<Item Name="Global_CMD.vi" Type="VI" URL="../Global_CMD.vi"/>
 	<Item Name="Global_SM Write_Data Out.vi" Type="VI" URL="../Global_SM Write_Data Out.vi"/>
-	<Item Name="Loop_ACT_Left_Motor.vi" Type="VI" URL="../Loop_ACT_Left_Motor.vi"/>
-	<Item Name="Loop_ACT_Right_Motor.vi" Type="VI" URL="../Loop_ACT_Right_Motor.vi"/>
+	<Item Name="Loop_ACT_Motors.vi" Type="VI" URL="../Loop_ACT_Motors.vi"/>
+	<Item Name="Loop_ACT_Solenoid.vi" Type="VI" URL="../Loop_ACT_Solenoid.vi"/>
+	<Item Name="Loop_SEN_Limit.vi" Type="VI" URL="../Loop_SEN_Limit.vi"/>
 	<Item Name="Loop_SM.vi" Type="VI" URL="../Loop_SM.vi"/>
 </Library>
