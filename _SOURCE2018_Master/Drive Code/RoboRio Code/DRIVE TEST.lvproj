@@ -782,7 +782,6 @@ AddOutputFilter chunkFilter
 				<Item Name="FPGA_CounterReadTimerOutput.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/Counter/FPGA_CounterReadTimerOutput.vi"/>
 				<Item Name="WPI_DigitalModuleGetDIO.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/DigitalModule/WPI_DigitalModuleGetDIO.vi"/>
 				<Item Name="FPGA_DIOReadDI.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/DIO/FPGA_DIOReadDI.vi"/>
-				<Item Name="Z900_navX_ProtocolTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/WPI/ThirdParty/Sensors/navX/Get/_TypeDefs/Z900_navX_ProtocolTypeDef.ctl"/>
 			</Item>
 			<Item Name="FRC_NetworkCommunication.dll" Type="Document" URL="FRC_NetworkCommunication.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
@@ -812,7 +811,9 @@ AddOutputFilter chunkFilter
 			<Item Name="Utility Delay ON.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Utilities/Utility Delay ON.vi"/>
 			<Item Name="Global_HW_Address_Assignments.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Globals/Global_HW_Address_Assignments.vi"/>
 			<Item Name="Cluster_WCDrive_SetupData.ctl" Type="VI" URL="../../../ProtoType Code/Claw Testing/Systems/WCDrive2018/Cluster_WCDrive_SetupData.ctl"/>
-			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../../ProtoType Code/Claw Testing/TypeDef/CLUSTER_PID.ctl"/>
+			<Item Name="ENUM_Vision_Commands.ctl" Type="VI" URL="../TypeDefs/ENUM_Vision_Commands.ctl"/>
+			<Item Name="OpenCamera.vi" Type="VI" URL="../Systems/VisionHW Folder/OpenCamera.vi"/>
+			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../../Arm and Claw Code/RoboRio Code/TypeDef/CLUSTER_PID.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
