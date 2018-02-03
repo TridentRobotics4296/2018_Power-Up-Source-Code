@@ -684,7 +684,6 @@ AddOutputFilter chunkFilter
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="_Main.vi" Type="VI" URL="../Systems/Arm/_Main.vi"/>
-			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../../ProtoType Code/Claw Testing/TypeDef/CLUSTER_PID.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
