@@ -44,7 +44,7 @@
 	<Item Name="SRX" Type="Folder">
 		<Item Name="MotionMagic_Set Position.vi" Type="VI" URL="../MotionMagic_Set Position.vi"/>
 		<Item Name="MotionMagic_Set Cruise and Accel.vi" Type="VI" URL="../MotionMagic_Set Cruise and Accel.vi"/>
-		<Item Name="Drive_Initialize.vi" Type="VI" URL="../Drive_Initialize.vi"/>
+		<Item Name="Drive_Initialize.vi" Type="VI" URL="../../../../../Drive Code/RoboRio Code/Systems/WCDrive2018/Drive_Initialize.vi"/>
 		<Item Name="SRX_Set PID Values.vi" Type="VI" URL="../SRX_Set PID Values.vi"/>
 	</Item>
 	<Item Name="_Main.vi" Type="VI" URL="../_Main.vi"/>
