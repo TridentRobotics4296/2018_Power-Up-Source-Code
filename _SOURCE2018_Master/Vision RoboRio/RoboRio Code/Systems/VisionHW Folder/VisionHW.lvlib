@@ -20,9 +20,9 @@
 	<Item Name="Global_ACT Write_Data Out.vi" Type="VI" URL="../Global_ACT Write_Data Out.vi"/>
 	<Item Name="Global_CMD.vi" Type="VI" URL="../Global_CMD.vi"/>
 	<Item Name="Global_Vision_CMDs.vi" Type="VI" URL="../../../Globals/Global_Vision_CMDs.vi"/>
-	<Item Name="Loop_ACT.vi" Type="VI" URL="../Loop_ACT.vi"/>
 	<Item Name="Loop_SM.vi" Type="VI" URL="../Loop_SM.vi"/>
-	<Item Name="OpenCamera.vi" Type="VI" URL="../OpenCamera.vi"/>
 	<Item Name="Parse Navigation Results.vi" Type="VI" URL="../Parse Navigation Results.vi"/>
 	<Item Name="SendCMD.vi" Type="VI" URL="../SendCMD.vi"/>
+	<Item Name="Loop_Camera.vi" Type="VI" URL="../Loop_Camera.vi"/>
+	<Item Name="OpenCameraComms.vi" Type="VI" URL="../OpenCameraComms.vi"/>
 </Library>
