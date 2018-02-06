@@ -9,13 +9,13 @@
 
 </Property>
 	<Item Name="TypeDefs" Type="Folder">
-		<Item Name="ENUM_Auto_State.ctl" Type="VI" URL="../ENUM_Auto_State.ctl"/>
+		<Item Name="ENUM_Overloard_State.ctl" Type="VI" URL="../ENUM_Overloard_State.ctl"/>
 		<Item Name="ENUM_Rotation_Positon.ctl" Type="VI" URL="../ENUM_Rotation_Positon.ctl"/>
-		<Item Name="ENUM_Auto_Action.ctl" Type="VI" URL="../ENUM_Auto_Action.ctl"/>
+		<Item Name="ENUM_Overloard_Action.ctl" Type="VI" URL="../ENUM_Overloard_Action.ctl"/>
 		<Item Name="CLUSTER_Rotation_CMD.ctl" Type="VI" URL="../CLUSTER_Rotation_CMD.ctl"/>
 	</Item>
 	<Item Name="Globals" Type="Folder">
 		<Item Name="Global_CMD.vi" Type="VI" URL="../Global_CMD.vi"/>
 	</Item>
-	<Item Name="Loop_Auto.vi" Type="VI" URL="../Loop_Auto.vi"/>
+	<Item Name="Loop_Overloard.vi" Type="VI" URL="../Loop_Overloard.vi"/>
 </Library>
