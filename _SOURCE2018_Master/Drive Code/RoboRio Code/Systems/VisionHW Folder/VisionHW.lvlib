@@ -12,6 +12,7 @@
 		<Item Name="VisionTest.vi" Type="VI" URL="../VisionTest.vi"/>
 	</Item>
 	<Item Name="_Main.vi" Type="VI" URL="../_Main.vi"/>
+	<Item Name="CalVision.vi" Type="VI" URL="../CalVision.vi"/>
 	<Item Name="CLUST_Cube Data.ctl" Type="VI" URL="../../../TypeDef/CLUST_Cube Data.ctl"/>
 	<Item Name="CLUST_Targeting Data.ctl" Type="VI" URL="../../../TypeDef/CLUST_Targeting Data.ctl"/>
 	<Item Name="CLUST_Road Navigation Data.ctl" Type="VI" URL="../../../TypeDef/CLUST_Road Navigation Data.ctl"/>
