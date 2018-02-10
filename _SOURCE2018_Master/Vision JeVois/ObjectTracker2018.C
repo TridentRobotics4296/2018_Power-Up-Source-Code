@@ -29,21 +29,30 @@
 #include <opencv2/imgproc/imgproc_c.h> // for cvFitLine
 #include <string.h>
 #include <future>
+#include <ctime> // for getting time
 #include <cstdio> // for std::remove
 
 static jevois::ParameterCategory const ParamCateg("ObjectTracker2018 Options");
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for HSV window",
-                         jevois::Range<unsigned char>(10, 245), ParamCateg);
+JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Cubes",
+                         jevois::Range<unsigned char>(33, 60), ParamCateg);
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for HSV window",
-                         jevois::Range<unsigned char>(10, 245), ParamCateg);
+JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Cubes",
+                         jevois::Range<unsigned char>(114, 195), ParamCateg);
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for HSV window",
-                         jevois::Range<unsigned char>(10, 245), ParamCateg);
+JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Cubes",
+                         jevois::Range<unsigned char>(136, 255), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(vrangePlat, jevois::Range<unsigned char>, "Range of V values for platforms",
+                         jevois::Range<unsigned char>(200, 255), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(rrangePlat, jevois::Range<unsigned char>, "Range of ratios for platform width to height",
+                         jevois::Range<unsigned char>(10, 20), ParamCateg);
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
@@ -71,11 +80,14 @@ JEVOIS_DECLARE_PARAMETER(baseX, size_t, "X coordinate to base objects off of",
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(baseY, size_t, "Y coordinate to base objects off of", 
-						 160, ParamCateg);
+						 120, ParamCateg);
 						 
 //! Parameter \relates RoadNavigation
 JEVOIS_DECLARE_PARAMETER(vpconf, float, "Minimum vanishing point confidence required to send a serial message",
                          0.0F, roadfinder::ParamCateg);
+
+JEVOIS_DECLARE_PARAMETER(updateTime, double, "Amount of time in ms to send serial messages",
+                         50, ParamCateg);
 
 // icon by Catalin Fertu in cinema at flaticon
 
@@ -112,15 +124,22 @@ JEVOIS_DECLARE_PARAMETER(vpconf, float, "Minimum vanishing point confidence requ
     @distribution Unrestricted
     @restrictions None */
 class ObjectTracker2018 :  public jevois::StdModule,
-                      public jevois::Parameter<hrange, srange, vrange, maxnumobj, objectarea, erodesize,
-                                               dilatesize, debug, baseX, baseY, vpconf>
+                      public jevois::Parameter<hrange, srange, vrange, vrangePlat, rrangePlat, maxnumobj, objectarea, erodesize,
+                                               dilatesize, debug, baseX, baseY, vpconf, updateTime>
 {	
+
   public:
-    //! Default base class constructor ok
-    using jevois::StdModule::StdModule;
+     using jevois::StdModule::StdModule;
 	 unsigned int missedFrames;
+	 double updateTime = updateTime::get();
+	 double previousClock = 0;
+	 bool resetClock = true;
+	 bool roadnav = true;
+	 bool trackcube = true;
+	 bool trackplat = true;
 	 jevois::Timer itsProcessingTimer;
      std::shared_ptr<RoadFinder> itsRoadFinder;
+	 //Constuctor init road nav objects
 	 ObjectTracker2018(std::string const & instance) :
         jevois::StdModule(instance), itsProcessingTimer("Processing", 30, LOG_DEBUG)
     {
@@ -131,35 +150,57 @@ class ObjectTracker2018 :  public jevois::StdModule,
     //! Virtual destructor for safe inheritance
     virtual ~ObjectTracker2018() { }
 	
+	//Put all params into a struct to pass to references
 	struct parameters {
-	   jevois::Range<unsigned char> hrange, srange, vrange;
+	   jevois::Range<unsigned char> hrange, srange, vrange, vrangePlat, rrangePlat;
 	   jevois::Range<unsigned int>  objectarea;
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
 	   float vpconf;
 	};
 	
-	/*void parseSerial(std::string const & str, std::shared_ptr<jevois::UserInterface> s) override
+    void parseSerial(std::string const & str, std::shared_ptr<jevois::UserInterface> s) override
     {
       std::vector<std::string> tok = jevois::split(str);
       if (tok.empty()) throw std::runtime_error("Unsupported empty module command");
-      std::string const dirname = absolutePath(itsMatcher->traindir::get());
 	  
-	  if(tok[0] == "test"){
-	     s = "TestRecieved";
-		 //sendSerial(s);
+	  if(tok[0] == "cam0")
+	  {
+	  	 if(tok[1] == "roadnav")
+		 {
+			roadnav = tok[2] == "true" ? true : false;
+		 }
+		 else if(tok[1] == "cubetrack")
+		 {
+			trackcube = tok[2] == "true" ? true : false;
+	 	 }
+		 else if(tok[1] == "plattrack")
+		 {
+		    trackplat = tok[2] == "true" ? true : false;
+	 	 }
 	  }
-      else throw std::runtime_error("Unsupported module command [" + str + ']');
-	}*/
+	  else throw std::runtime_error("Unsupported module command [" + str + ']');
+	  
+	}
+	
+	/**
+	  * Tracks cubes with a color filter then restricting object ratio
+	  * It only returns the closest object
+	  */
 	std::string trackCube(jevois::RawImage inimg, jevois::RawImage outimg, unsigned int const w, unsigned int const h, parameters params, unsigned int missedFrames)
 	{ 
+	  // Initialize output
 	  std::string output = "";
-	
+	  
+	  // Exit method if not specified to run
+	  if(!trackcube) return output;
+	  
 	  // Convert input image to BGR24, then to HSV:
       cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
-      cv::Mat imghsv; cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
+      cv::Mat imghsv; 
+	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
 	  
-		// Threshold the HSV image to only keep pixels within the desired HSV range:
+	  // Threshold the HSV image to only keep pixels within the desired HSV range:
       cv::Mat imgth;
       cv::inRange(imghsv, cv::Scalar(params.hrange.min(), params.srange.min(), params.vrange.min()),
                   cv::Scalar(params.hrange.max(), params.srange.max(), params.vrange.max()), imgth);
@@ -167,7 +208,6 @@ class ObjectTracker2018 :  public jevois::StdModule,
       // Apply morphological operations to cleanup the image noise:
       cv::Mat erodeElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.erodesize, params.erodesize));
       cv::erode(imgth, imgth, erodeElement);
-
       cv::Mat dilateElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.dilatesize, params.dilatesize));
       cv::dilate(imgth, imgth, dilateElement);
 
@@ -197,6 +237,181 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  // Identify the "good" objects:
       if (hierarchy.size() > 0 && hierarchy.size() <= params.maxnumobj)
       {
+	    //Reinit vars
+        double refArea = 0.0; int x = 0, y = 0; int refIdx = 0;
+
+        //Loop through all detected objects
+        for (int index = 0; index >= 0; index = hierarchy[index][0])
+        {
+          cv::Moments moment = cv::moments((cv::Mat)contours[index]);
+          double area = moment.m00;
+		  
+		  //Check if area is within range
+          if (params.objectarea.contains(int(area + 0.4999)) && area > refArea)
+          {
+		     //Retrieve x and y values
+		     x = moment.m10 / area + 0.4999;
+		     y = moment.m01 / area + 0.4999;
+		     refArea = area;
+			 refIdx = index;
+			 
+			 //Create bounding rects
+			 cv::Rect r = cv::boundingRect(contours[index]);
+		     double rwidth = r.br().x - r.tl().x;
+		     double rheight = r.br().y - r.tl().y;
+		     double boxRatio = rwidth/rheight;
+		     
+			 //Enforce bounding box ratio and only take largest box
+			 if(area > largestArea && boxRatio > 0.75 && boxRatio < 1.5 && x != 0 && y != 0)
+			 {
+			     numobj++;
+			     largestArea = area;
+				 closestObjX = x;
+				 closestObjY = y;
+				 closestObjWidth = rwidth;
+				 closestObjHeight = rheight;
+				 closestObjRatio = boxRatio;
+			 }
+		  }
+        }
+		
+		// If there is more than one object
+        if(numobj >= 1)
+		{
+		    missedFrames = 0; // Reset missed frame count
+		    numobj = 1; // Set to one because we only take largest value
+			signed int refX = params.baseX;  // refX and refY need to be assigned to become signed for calculations
+			signed int refY = params.baseY;
+			
+			unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * w)/closestObjHeight; // Calculation for the distance of the object
+			
+			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
+			
+		   // Send serial messages to be parsed later
+		   output =      "CUBE: w = " + std::to_string(closestObjWidth) +
+		   					  " h = " + std::to_string(closestObjHeight) +
+							  " r = " + std::to_string(closestObjRatio) +
+							  " x = " + std::to_string(closestObjX - refX) +
+							  " y = " + std::to_string(closestObjY - refY) +
+							  " d = " + std::to_string(closestObjDist);
+	   }
+	   
+	    // Possibly wait until all contours are drawn, if they had been requested:
+        if (draw_fut.valid()) draw_fut.get();
+	    
+    }
+	
+	// Draw circle around center of (baseX, baseY)
+	  jevois::rawimage::drawCircle(outimg, params.baseX, params.baseY, 5, 1, jevois::yuyv::LightPurple);
+	
+	  // Show number of detected objects:
+      jevois::rawimage::writeText(outimg, "Detected " + std::to_string(numobj) + " objects.",
+                                  3, h + 2, jevois::yuyv::White);
+	  // Return the output speed							  
+	  return output;
+	}
+	
+	/**
+	  * Track the vanishing point on the horizion and give
+	  * the coordinates from the center
+	  */
+	std::string roadNav(jevois::RawImage inimg, jevois::RawImage outimg, unsigned int const w, unsigned int const h, parameters params)
+	{ 
+	   // Init the output string
+	   std::string output = "";
+	   
+	   // Exit method if not specified to run
+	  if(!roadnav) return output;
+
+       itsProcessingTimer.start();
+      
+       // Convert it to gray:
+       cv::Mat imggray = jevois::rawimage::convertToCvGray(inimg);
+
+       // Compute the vanishing point. Note: the results will be drawn into inimg, so that we don't have to wait for
+       // outimg to be ready. It's ok to modify the input image, its buffer will be sent back to the camera driver for
+       // capture once we are done here, and will be overwritten anyway:
+       itsRoadFinder->process(imggray, outimg);
+ 
+       // Paste the original image + drawings to the top-left corner of the display:
+       unsigned short const txtcol = 0xa0ff;
+      
+       // Clear out the bottom section of the image:
+       jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, jevois::yuyv::Black);
+
+       // Get the vanishing point and send to serial:
+       std::pair<Point2D<int>, float> vp = itsRoadFinder->getCurrVanishingPoint();
+      
+       // Write some extra info about the vp:
+	   signed int roadX = vp.first.i;
+	   signed int width = w;
+       std::ostringstream otxt; otxt << std::fixed << std::setprecision(3);
+       otxt << "VP x=" << vp.first.i << " (" << vp.second << ") CTR=" << std::setprecision(1);
+       auto cp = itsRoadFinder->getCurrCenterPoint();
+       auto tp = itsRoadFinder->getCurrTargetPoint();
+       float const tpx = itsRoadFinder->getFilteredTargetX();
+       otxt << cp.i << " TGT=" << tp.i << " fTPX=" << tpx;
+       jevois::rawimage::writeText(outimg, otxt.str().c_str(), 3, h - 13, jevois::yuyv::White);
+	   
+	   // Set the vp to be based aroung the center of the screen
+	   output = "   RN: " + std::to_string(roadX - (width/2)) + "   ";
+	   
+	   // Return the serial output string
+	   return output;
+	}
+
+    /**
+	  * Track the LEDs on the platform by detecting intensity
+	  * then enforcing an object ratio
+	  */
+	std::string trackPlatform(jevois::RawImage inimg, jevois::RawImage outimg, unsigned int const w, unsigned int const h, parameters params)
+	{ 
+	  // Init output string
+	  std::string output = "";
+	  
+	  // Exit method if not specified to run
+	  if(!trackplat) return output;
+	  
+	  // Convert input image to BGR24, then to HSV:
+      cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
+      cv::Mat imghsv; 
+	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
+	  
+	  // Threshold the HSV image to only keep pixels within the desired HSV range:
+      cv::Mat imgth;
+      cv::inRange(imghsv, cv::Scalar(0, 0, params.vrangePlat.min()),
+                  cv::Scalar(255, 255, params.vrangePlat.max()), imgth);
+      
+      // Apply morphological operations to cleanup the image noise:
+      cv::Mat erodeElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.erodesize, params.erodesize));
+      cv::erode(imgth, imgth, erodeElement);
+      cv::Mat dilateElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.dilatesize, params.dilatesize));
+      cv::dilate(imgth, imgth, dilateElement);
+
+      // Detect objects by finding contours:
+      std::vector<std::vector<cv::Point> > contours; 
+	  std::vector<cv::Vec4i> hierarchy;
+      cv::findContours(imgth, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+
+      // If desired, draw all contours in a thread:
+      std::future<void> draw_fut;
+      if (params.debug)
+        draw_fut = std::async(std::launch::async, [&]() {
+            // We reinterpret the top portion of our YUYV output image as an opencv 8UC2 image:
+            cv::Mat outuc2(imgth.rows, imgth.cols, CV_8UC2, outimg.pixelsw<unsigned char>()); // pixel data shared
+            for (size_t i = 0; i < contours.size(); ++i)
+              cv::drawContours(outuc2, contours, i, jevois::yuyv::LightPink, 2, 8, hierarchy);
+      });
+	  
+	  int numobj = 0;
+	  int closestObjX = 0;
+	  int closestObjY = 0;
+	  int largestArea = 0;
+	  double closestObjWidth = 0;
+	  double closestObjHeight = 0;
+	  double closestObjRatio = 0;
+	  if (hierarchy.size() > 0 && hierarchy.size() <= params.maxnumobj)
+      {
         double refArea = 0.0; int x = 0, y = 0; int refIdx = 0;
 
         for (int index = 0; index >= 0; index = hierarchy[index][0])
@@ -206,7 +421,6 @@ class ObjectTracker2018 :  public jevois::StdModule,
 		  
           if (params.objectarea.contains(int(area + 0.4999)) && area > refArea)
           {
-		  	 numobj++;
 		     x = moment.m10 / area + 0.4999;
 		     y = moment.m01 / area + 0.4999;
 		     refArea = area;
@@ -217,8 +431,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 		     double rheight = r.br().y - r.tl().y;
 		     double boxRatio = rwidth/rheight;
 		  
-			 if(area > largestArea && boxRatio > 0.8 && boxRatio < 1.3) //Find good object with largest area
+			 if(area > largestArea && boxRatio > params.rrangePlat.min() 
+			    && boxRatio < params.rrangePlat.max() 
+				&& x != 0 && y != 0) //Find good object with largest area
 			 {
+			     numobj++;
 			     largestArea = area;
 				 closestObjX = x;
 				 closestObjY = y;
@@ -236,87 +453,32 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			signed int refX = params.baseX;  //refX and refY need to be assigned to become signed for calculations
 			signed int refY = params.baseY;
 			
-			unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * 254)/closestObjHeight;
-			
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); //draw circle around detected obj
 			
 		   //Send serial messages to be parsed later
-		   output =   "Object: w=" + std::to_string(closestObjWidth) +
-		   					  "h=" + std::to_string(closestObjHeight) +
-							  "r=" + std::to_string(closestObjRatio) +
-							  "x=" + std::to_string(closestObjX - refX) +
-							  "y=" + std::to_string(closestObjY - refY) +
-							  "d=" + std::to_string(closestObjDist);
-	   }
-	   else if(missedFrames > 5)
-	   {
-		    missedFrames++;
-			output = "Object: NO OBJECT";
-	   }
-	   else
-	   {
-	       output = "Object: SEARCHING";
-	       missedFrames++;
-	   }
-	   
+		   output =   "   PLAT: r = " + std::to_string(closestObjRatio) +
+							  " x = " + std::to_string(closestObjX - refX) +
+							  " y = " + std::to_string(closestObjY - refY);
+	   } 
 	    // Possibly wait until all contours are drawn, if they had been requested:
         if (draw_fut.valid()) draw_fut.get();
-	   
-	    
-    }
-	
-	  jevois::rawimage::drawCircle(outimg, params.baseX, params.baseY, 5, 1, jevois::yuyv::LightPurple); //Draw circle around center of (baseX, baseY)
-	
-	  // Show number of detected objects:
-      jevois::rawimage::writeText(outimg, "Detected " + std::to_string(numobj) + " objects.",
-                                  3, h + 2, jevois::yuyv::White);
-	  return output;
-	}
-	
-	std::string roadNav(jevois::RawImage inimg, jevois::RawImage outimg, unsigned int const w, unsigned int const h, parameters params)
-	{ 
-	   std::string output = "";
-
-       itsProcessingTimer.start();
-      
-       // Convert it to gray:
-       cv::Mat imggray = jevois::rawimage::convertToCvGray(inimg);
-
-       // Compute the vanishing point. Note: the results will be drawn into inimg, so that we don't have to wait for
-       // outimg to be ready. It's ok to modify the input image, its buffer will be sent back to the camera driver for
-       // capture once we are done here, and will be overwritten anyway:
-       itsRoadFinder->process(imggray, inimg);
- 
-       // Paste the original image + drawings to the top-left corner of the display:
-       unsigned short const txtcol = 0xa0ff; //WHITE: 0x80ff;
-      
-       // Clear out the bottom section of the image:
-       jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, jevois::yuyv::Black);
-
-       // Get the vanishing point and send to serial:
-       std::pair<Point2D<int>, float> vp = itsRoadFinder->getCurrVanishingPoint();
-       if (vp.second >= params.vpconf) 
-	      //sendSerialImg1Dx(w, vp.first.i, 0.0F, "vp");
-		  output = "   RN: " + std::to_string(vp.first.i);
-      
-       // Write some extra info about the vp:
-       std::ostringstream otxt; otxt << std::fixed << std::setprecision(3);
-       otxt << "VP x=" << vp.first.i << " (" << vp.second << ") CTR=" << std::setprecision(1);
-       auto cp = itsRoadFinder->getCurrCenterPoint();
-       auto tp = itsRoadFinder->getCurrTargetPoint();
-       float const tpx = itsRoadFinder->getFilteredTargetX();
-       otxt << cp.i << " TGT=" << tp.i << " fTPX=" << tpx;
-       jevois::rawimage::writeText(outimg, otxt.str().c_str(), 3, h - 13, jevois::yuyv::White);
-	   
-	   return output;
-	}
-	
+	 }
+	 
+	 return output;
+   }
+    
 
     //! Processing function - with USB output
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
     {
 	  std::string serMessage = ""; //Init serial Message
       static jevois::Timer timer("processing");
+	  updateTime = updateTime::get();
+
+	   if(resetClock){
+	      previousClock = std::clock();
+		  resetClock = false;
+	   }
 
 	  parameters params;
 	
@@ -331,7 +493,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
       jevois::RawImage outimg; // main thread should not use outimg until paste thread is complete
       auto paste_fut = std::async(std::launch::async, [&]() {
           outimg = outframe.get();
-          outimg.require("output", w, h + 14, inimg.fmt);
+          outimg.require("output", w, h, inimg.fmt);
           jevois::rawimage::paste(inimg, outimg, 0, 0);
           jevois::rawimage::writeText(outimg, "Team 4296 Cube Tracker", 3, 3, jevois::yuyv::White);
           jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, 0x8000);
@@ -344,6 +506,8 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  params.hrange = hrange::get();
 	  params.vrange = vrange::get();
 	  params.srange = srange::get();
+	  params.vrangePlat = vrangePlat::get();
+	  params.rrangePlat = rrangePlat::get();
 	  params.dilatesize = dilatesize::get();
 	  params.erodesize = erodesize::get();
 	  params.objectarea = objectarea::get();
@@ -353,20 +517,29 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  params.debug = debug::get();
 	  params.vpconf = vpconf::get();
 
+	  // Let camera know we are done processing the input image:
+      inframe.done();
+
 	  // Run method on thread
 	  auto trackCubeFut = std::async(&ObjectTracker2018::trackCube, this, inimg, outimg, w, h, params, missedFrames);
 	  
 	  // Run method on thread
 	  auto roadNavFut = std::async(&ObjectTracker2018::roadNav, this, inimg, outimg, w, h, params);
+	  
+	  // Run method on thread
+	  auto trackPlatFut = std::async(&ObjectTracker2018::trackPlatform, this, inimg, outimg, w, h, params);
 	
-	  serMessage = trackCubeFut.get();
-	  serMessage += roadNavFut.get();
-	 
-	  // Send serial message if there is a message
-	  sendSerial(serMessage);
-	 
-	  // Let camera know we are done processing the input image:
-      inframe.done();
+	  if(trackcube) serMessage = roadNavFut.get();
+	  if(roadnav) serMessage += trackCubeFut.get();
+	  if(trackplat) serMessage += trackPlatFut.get();
+	  
+	  double elaspedTime = (float(std::clock() - previousClock) / (CLOCKS_PER_SEC)) * 1000;
+	  
+	  if(elaspedTime > updateTime){
+	    // Send serial message if there is a message
+	    sendSerial(serMessage);
+		resetClock = true;
+	  }
 
 	 // Show processing fps:
       std::string const & fpscpu = timer.stop();
