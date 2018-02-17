@@ -1,23 +1,25 @@
 Controller 0 - Driver (Joseph)
-	Axies
-		Left Y - throtal
+	Axes
+		Left Y - throttle
 		Left X - N/A
 		Right Y - N/A
-		Right X - stear
-		Left Trigger - N/A
-		Right Trigger - N/A
+		Right X - steer
+		Left Trigger - Intake (Shoot Out)
+		Right Trigger - Intake (Retrieve Cube)
 		
 	Buttons
-		A - N/A
+		A - Vbus control
 		B - Turbo
-		X - Road Following
+		X - Toggle Claw Piston
 		Y - 0 Gyro
 		Left Bumper - Cube Centering
 		Right Bumper - shift gear up down
+		Left stick in - road follow
+		Right stick in - lock angle
 
 
 Controller 1 - Manipulator (Amanda)
-	Axies
+	Axes
 		Left Y - Claw Rotation
 		Left X - N/A
 		Right Y - Arm
@@ -26,9 +28,9 @@ Controller 1 - Manipulator (Amanda)
 		Right Trigger - Lift Up
 		
 	Buttons
-		A - Intake (Retrieve Cube)
+		A - N/A
 		B - N/A
 		X - N/A
-		Y - Intake (Shoot Out)
+		Y - N/A
 		Left Bumper - N/A
-		Right Bumper - Toggle Claw Piston
+		Right Bumper - N/A
