@@ -834,7 +834,6 @@ AddOutputFilter chunkFilter
 			<Item Name="Cluster_Drive_RPM.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_Drive_RPM.ctl"/>
 			<Item Name="Cluster_SRX_Amperage.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_SRX_Amperage.ctl"/>
 			<Item Name="NET_Compressor.vi" Type="VI" URL="../../Shared/Network Variables/NET_Compressor.vi"/>
-			<Item Name="Cluster_Compressor.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_Compressor.ctl"/>
 			<Item Name="NET_Drive_Cluster.vi" Type="VI" URL="../../Shared/Network Variables/NET_Drive_Cluster.vi"/>
 			<Item Name="NET_Encoder_Values.vi" Type="VI" URL="../../Shared/Network Variables/NET_Encoder_Values.vi"/>
 			<Item Name="NET_DriveRPM.vi" Type="VI" URL="../../Shared/Network Variables/NET_DriveRPM.vi"/>
@@ -842,13 +841,10 @@ AddOutputFilter chunkFilter
 			<Item Name="NET_Drive_Motion Profile.vi" Type="VI" URL="../../Shared/Network Variables/NET_Drive_Motion Profile.vi"/>
 			<Item Name="Convert Profile Point to String.vi" Type="VI" URL="../../Shared/Support/Convert Profile Point to String.vi"/>
 			<Item Name="NET_RIO_Status.vi" Type="VI" URL="../../Shared/Network Variables/NET_RIO_Status.vi"/>
-			<Item Name="CLUSTER_RoboRio_Status.ctl" Type="VI" URL="../../Shared/TypeDef/CLUSTER_RoboRio_Status.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Faults.ctl" Type="VI" URL="../../Shared/TypeDef/CLUSTER_RoboRio_Faults.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Rails.ctl" Type="VI" URL="../../Shared/TypeDef/CLUSTER_RoboRio_Rails.ctl"/>
-			<Item Name="CLUSTER_RoboRio_SingleRail.ctl" Type="VI" URL="../../Shared/TypeDef/CLUSTER_RoboRio_SingleRail.ctl"/>
 			<Item Name="NET_PCM_Status.vi" Type="VI" URL="../../Shared/Network Variables/NET_PCM_Status.vi"/>
-			<Item Name="CLUSTER_PCM_Status.ctl" Type="VI" URL="../TypeDef/CLUSTER_PCM_Status.ctl"/>
 			<Item Name="NET_Gear.vi" Type="VI" URL="../../Shared/Network Variables/NET_Gear.vi"/>
+			<Item Name="NET_Cube_HSV.vi" Type="VI" URL="../../Shared/Network Variables/NET_Cube_HSV.vi"/>
+			<Item Name="NET_Enable_System.vi" Type="VI" URL="../../Shared/Network Variables/NET_Enable_System.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
