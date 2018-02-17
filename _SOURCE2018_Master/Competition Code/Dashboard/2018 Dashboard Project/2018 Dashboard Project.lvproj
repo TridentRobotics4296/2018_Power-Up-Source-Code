@@ -20,7 +20,7 @@
 			<Item Name="Adjust Dashboard Window.vi" Type="VI" URL="../Adjust Dashboard Window.vi"/>
 		</Item>
 		<Item Name="Dashboard Main.vi" Type="VI" URL="../Dashboard Main.vi"/>
-		<Item Name="NET_Cube_HSV.vi" Type="VI" URL="../../../GitHub/2018_Power-Up-Source-Code/_SOURCE2018_Master/Competition Code/Shared/Network Variables/NET_Cube_HSV.vi"/>
+		<Item Name="NET_Cube_HSV.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Cube_HSV.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Property Name="NI.SortType" Type="Int">0</Property>
@@ -242,8 +242,9 @@
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Playback Controls.vi" Type="VI" URL="../Playback Controls.vi"/>
-			<Item Name="Cluster_Compressor.ctl" Type="VI" URL="../../../GitHub/2018_Power-Up-Source-Code/_SOURCE2018_Master/Competition Code/Shared/TypeDef/Cluster_Compressor.ctl"/>
-			<Item Name="NET_Compressor.vi" Type="VI" URL="../../../GitHub/2018_Power-Up-Source-Code/_SOURCE2018_Master/Competition Code/Shared/Network Variables/NET_Compressor.vi"/>
+			<Item Name="CLUSTER_PDP_Faults.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_PDP_Faults.ctl"/>
+			<Item Name="CLUSTER_PDP_Status.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_PDP_Status.ctl"/>
+			<Item Name="NET_PDPStatus.vi" Type="VI" URL="../../../Shared/Network Variables/NET_PDPStatus.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC_Dashboard" Type="EXE">
@@ -260,7 +261,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{F12754D6-B5E0-496F-B50C-3EDB6F368199}</Property>
-				<Property Name="Bld_version.build" Type="Int">6</Property>
+				<Property Name="Bld_version.build" Type="Int">8</Property>
 				<Property Name="Bld_version.major" Type="Int">17</Property>
 				<Property Name="Bld_version.patch" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">Dashboard.exe</Property>
@@ -270,7 +271,7 @@
 				<Property Name="Destination[1].path" Type="Path">../builds/FRC_Dashboard/data</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
 				<Property Name="Exe_iconItemID" Type="Ref">/My Computer/Support/App EXE.ico</Property>
-				<Property Name="Source[0].itemID" Type="Str">{EEEDFFC6-8D24-448E-BEC2-57156FFF6E26}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{01DF3E35-BF4E-4B58-9883-B2EB05639968}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Dashboard Main.vi</Property>

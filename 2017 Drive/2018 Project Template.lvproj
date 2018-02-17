@@ -598,6 +598,7 @@ AddOutputFilter chunkFilter
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Global_STOP.vi" Type="VI" URL="../../../_SHARE ALL/Global Share All/Global_STOP.vi"/>
+			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../_SOURCE2018_Master/Arm and Claw Code/RoboRio Code/TypeDef/CLUSTER_PID.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
