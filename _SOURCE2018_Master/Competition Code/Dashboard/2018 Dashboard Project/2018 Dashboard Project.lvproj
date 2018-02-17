@@ -245,6 +245,13 @@
 			<Item Name="CLUSTER_PDP_Faults.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_PDP_Faults.ctl"/>
 			<Item Name="CLUSTER_PDP_Status.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_PDP_Status.ctl"/>
 			<Item Name="NET_PDPStatus.vi" Type="VI" URL="../../../Shared/Network Variables/NET_PDPStatus.vi"/>
+			<Item Name="CLUSTER_RoboRio_SingleRail.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_SingleRail.ctl"/>
+			<Item Name="CLUSTER_RoboRio_Rails.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_Rails.ctl"/>
+			<Item Name="CLUSTER_RoboRio_Faults.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_Faults.ctl"/>
+			<Item Name="CLUSTER_RoboRio_Status.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_Status.ctl"/>
+			<Item Name="NET_RIO_Status.vi" Type="VI" URL="../../../Shared/Network Variables/NET_RIO_Status.vi"/>
+			<Item Name="Cluster_SRX_Amperage.ctl" Type="VI" URL="../../../Shared/TypeDef/Cluster_SRX_Amperage.ctl"/>
+			<Item Name="NET_SRX_Amperage.vi" Type="VI" URL="../../../Shared/Network Variables/NET_SRX_Amperage.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC_Dashboard" Type="EXE">
