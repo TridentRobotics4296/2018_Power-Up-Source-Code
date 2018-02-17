@@ -18,7 +18,7 @@ Controller 0 - Driver (Joseph)
 
 Controller 1 - Manipulator (Amanda)
 	Axies
-		Left Y - Claw Rotatioon
+		Left Y - Claw Rotation
 		Left X - N/A
 		Right Y - Arm
 		Right X - N/A
@@ -26,9 +26,9 @@ Controller 1 - Manipulator (Amanda)
 		Right Trigger - Lift Up
 		
 	Buttons
-		A - Intake (Shoot Out)
+		A - Intake (Retrieve Cube)
 		B - N/A
 		X - N/A
-		Y - Intake (Input Cubes)
+		Y - Intake (Shoot Out)
 		Left Bumper - N/A
 		Right Bumper - Toggle Claw Piston
