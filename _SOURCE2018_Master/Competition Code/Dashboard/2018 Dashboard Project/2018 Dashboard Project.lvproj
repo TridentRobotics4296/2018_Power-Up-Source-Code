@@ -243,16 +243,31 @@
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Playback Controls.vi" Type="VI" URL="../Playback Controls.vi"/>
-			<Item Name="CLUSTER_PDP_Faults.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_PDP_Faults.ctl"/>
-			<Item Name="CLUSTER_PDP_Status.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_PDP_Status.ctl"/>
+			<Item Name="CLUSTER_PDP_Faults.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_PDP_Faults.ctl"/>
+			<Item Name="CLUSTER_PDP_Status.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_PDP_Status.ctl"/>
 			<Item Name="NET_PDPStatus.vi" Type="VI" URL="../../../Shared/Network Variables/NET_PDPStatus.vi"/>
-			<Item Name="CLUSTER_RoboRio_SingleRail.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_SingleRail.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Rails.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_Rails.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Faults.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_Faults.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Status.ctl" Type="VI" URL="../../../Shared/TypeDef/CLUSTER_RoboRio_Status.ctl"/>
+			<Item Name="CLUSTER_RoboRio_SingleRail.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_SingleRail.ctl"/>
+			<Item Name="CLUSTER_RoboRio_Rails.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_Rails.ctl"/>
+			<Item Name="CLUSTER_RoboRio_Faults.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_Faults.ctl"/>
+			<Item Name="CLUSTER_RoboRio_Status.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_Status.ctl"/>
 			<Item Name="NET_RIO_Status.vi" Type="VI" URL="../../../Shared/Network Variables/NET_RIO_Status.vi"/>
-			<Item Name="Cluster_SRX_Amperage.ctl" Type="VI" URL="../../../Shared/TypeDef/Cluster_SRX_Amperage.ctl"/>
+			<Item Name="CLUSTER_PCM_Status.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_PCM_Status.ctl"/>
+			<Item Name="NET_PCM_Status.vi" Type="VI" URL="../../../Shared/Network Variables/NET_PCM_Status.vi"/>
+			<Item Name="CLUSTER_X and Y.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_X and Y.ctl"/>
+			<Item Name="CLUSTER_Drive_ACT Loop_VBus Data.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Drive_ACT Loop_VBus Data.ctl"/>
+			<Item Name="CLUSTER_Drive_ACT Loop_Profile Data.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Drive_ACT Loop_Profile Data.ctl"/>
+			<Item Name="ENUM_WC_Drive_DriveMode.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/ENUM_WC_Drive_DriveMode.ctl"/>
+			<Item Name="CLUSTER_CMD_WC_Drive.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_CMD_WC_Drive.ctl"/>
+			<Item Name="NET_Drive_Cluster.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Drive_Cluster.vi"/>
+			<Item Name="Cluster_Compressor.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/Cluster_Compressor.ctl"/>
+			<Item Name="NET_Compressor.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Compressor.vi"/>
+			<Item Name="NET_Gear.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Gear.vi"/>
+			<Item Name="NET_DriveRPM.vi" Type="VI" URL="../../../Shared/Network Variables/NET_DriveRPM.vi"/>
+			<Item Name="Cluster_Drive_RPM.ctl" Type="VI" URL="../../../Shared/TypeDef/Cluster_Drive_RPM.ctl"/>
+			<Item Name="NET_Encoder_Values.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Encoder_Values.vi"/>
+			<Item Name="Cluster_Encoder_Count.ctl" Type="VI" URL="../../../Shared/TypeDef/Cluster_Encoder_Count.ctl"/>
 			<Item Name="NET_SRX_Amperage.vi" Type="VI" URL="../../../Shared/Network Variables/NET_SRX_Amperage.vi"/>
+			<Item Name="Cluster_SRX_Amperage.ctl" Type="VI" URL="../../../Shared/TypeDef/Cluster_SRX_Amperage.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC_Dashboard" Type="EXE">
