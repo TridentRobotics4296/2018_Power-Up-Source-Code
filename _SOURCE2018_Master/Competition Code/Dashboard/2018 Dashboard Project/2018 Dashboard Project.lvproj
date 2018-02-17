@@ -21,6 +21,7 @@
 		</Item>
 		<Item Name="Dashboard Main.vi" Type="VI" URL="../Dashboard Main.vi"/>
 		<Item Name="NET_Cube_HSV.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Cube_HSV.vi"/>
+		<Item Name="NET_Enable_System.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Enable_System.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Property Name="NI.SortType" Type="Int">0</Property>
