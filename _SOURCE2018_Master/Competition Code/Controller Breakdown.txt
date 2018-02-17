@@ -27,7 +27,7 @@ Controller 1 - Manipulator (Amanda)
 		Left Trigger - Lift Down
 		Right Trigger - Lift Up
 		
-	Buttons
+	Buttons (Will be updated, with Positon Buttons)
 		A - N/A
 		B - N/A
 		X - N/A
