@@ -22,6 +22,7 @@
 		<Item Name="Dashboard Main.vi" Type="VI" URL="../Dashboard Main.vi"/>
 		<Item Name="NET_Cube_HSV.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Cube_HSV.vi"/>
 		<Item Name="NET_Enable_System.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Enable_System.vi"/>
+		<Item Name="NET_Auto_Route.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Auto_Route.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Property Name="NI.SortType" Type="Int">0</Property>
@@ -262,6 +263,7 @@
 			<Item Name="ENUM_WC_Drive_DriveMode.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/ENUM_WC_Drive_DriveMode.ctl"/>
 			<Item Name="CLUSTER_CMD_WC_Drive.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_CMD_WC_Drive.ctl"/>
 			<Item Name="NET_Drive_Cluster.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Drive_Cluster.vi"/>
+			<Item Name="ENUM_Auto_AutoMode.ctl" Type="VI" URL="../../../RoboRio Code/Systems/Autonomous/Autonomous/ENUM_Auto_AutoMode.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC_Dashboard" Type="EXE">
@@ -278,7 +280,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{F12754D6-B5E0-496F-B50C-3EDB6F368199}</Property>
-				<Property Name="Bld_version.build" Type="Int">12</Property>
+				<Property Name="Bld_version.build" Type="Int">17</Property>
 				<Property Name="Bld_version.major" Type="Int">17</Property>
 				<Property Name="Bld_version.patch" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">Dashboard.exe</Property>
