@@ -598,8 +598,6 @@ AddOutputFilter chunkFilter
 			<Item Name="nivissvc.dll" Type="Document" URL="nivissvc.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
-			<Item Name="Global_System_Checks.vi" Type="VI" URL="../../../Competition Code/RoboRio Code/Globals/Global_System_Checks.vi"/>
-			<Item Name="Control 1.ctl" Type="VI" URL="../../../Competition Code/RoboRio Code/Globals/Control 1.ctl"/>
 			<Item Name="CLUSTER_PID.ctl" Type="VI" URL="../../../Competition Code/RoboRio Code/TypeDef/CLUSTER_PID.ctl"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
