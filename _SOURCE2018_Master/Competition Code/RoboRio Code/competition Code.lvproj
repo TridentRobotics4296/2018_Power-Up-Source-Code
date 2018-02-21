@@ -731,7 +731,6 @@ AddOutputFilter chunkFilter
 			<Item Name="OpenCamera.vi" Type="VI" URL="../Systems/VisionHW Folder/OpenCamera.vi"/>
 			<Item Name="Utility Delay ON.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Utilities/Utility Delay ON.vi"/>
 			<Item Name="Utility_SRX_Standard Status Read.vi" Type="VI" URL="../../../ProtoType Code/EXAMPLE 2017 competition code/roboRIO Code/Utilities/Utility_SRX_Standard Status Read.vi"/>
-			<Item Name="Cluster_Drive_RPM.ctl" Type="VI" URL="../../Shared/TypeDef/Cluster_Drive_RPM.ctl"/>
 			<Item Name="NET_Compressor.vi" Type="VI" URL="../../Shared/Network Variables/NET_Compressor.vi"/>
 			<Item Name="NET_Drive_Cluster.vi" Type="VI" URL="../../Shared/Network Variables/NET_Drive_Cluster.vi"/>
 			<Item Name="NET_DriveRPM.vi" Type="VI" URL="../../Shared/Network Variables/NET_DriveRPM.vi"/>
