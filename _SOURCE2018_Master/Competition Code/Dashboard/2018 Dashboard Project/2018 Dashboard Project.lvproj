@@ -244,19 +244,9 @@
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="Playback Controls.vi" Type="VI" URL="../Playback Controls.vi"/>
-			<Item Name="NET_PDPStatus.vi" Type="VI" URL="../../../Shared/Network Variables/NET_PDPStatus.vi"/>
-			<Item Name="NET_RIO_Status.vi" Type="VI" URL="../../../Shared/Network Variables/NET_RIO_Status.vi"/>
-			<Item Name="CLUSTER_PDP_Status.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_PDP_Status.ctl"/>
-			<Item Name="CLUSTER_PDP_Faults.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_PDP_Faults.ctl"/>
-			<Item Name="CLUSTER_RoboRio_SingleRail.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_SingleRail.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Rails.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_Rails.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Faults.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_Faults.ctl"/>
-			<Item Name="CLUSTER_RoboRio_Status.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_RoboRio_Status.ctl"/>
 			<Item Name="Cluster_Compressor.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/Cluster_Compressor.ctl"/>
 			<Item Name="NET_Compressor.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Compressor.vi"/>
 			<Item Name="NET_Gear.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Gear.vi"/>
-			<Item Name="CLUSTER_PCM_Status.ctl" Type="VI" URL="../../../../_SHARE ALL/TypeDef Share All/CLUSTER_PCM_Status.ctl"/>
-			<Item Name="NET_PCM_Status.vi" Type="VI" URL="../../../Shared/Network Variables/NET_PCM_Status.vi"/>
 			<Item Name="CLUSTER_X and Y.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_X and Y.ctl"/>
 			<Item Name="CLUSTER_Drive_ACT Loop_VBus Data.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Drive_ACT Loop_VBus Data.ctl"/>
 			<Item Name="CLUSTER_Drive_ACT Loop_Profile Data.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Drive_ACT Loop_Profile Data.ctl"/>
