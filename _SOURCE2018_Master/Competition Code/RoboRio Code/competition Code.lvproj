@@ -741,6 +741,7 @@ AddOutputFilter chunkFilter
 			<Item Name="NET_Cube_HSV.vi" Type="VI" URL="../../Shared/Network Variables/NET_Cube_HSV.vi"/>
 			<Item Name="NET_Auto_Route.vi" Type="VI" URL="../../Shared/Network Variables/NET_Auto_Route.vi"/>
 			<Item Name="NET_Limit_Switches.vi" Type="VI" URL="../../Shared/Network Variables/NET_Limit_Switches.vi"/>
+			<Item Name="NET_Sensitivity.vi" Type="VI" URL="../../Shared/Network Variables/NET_Sensitivity.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
