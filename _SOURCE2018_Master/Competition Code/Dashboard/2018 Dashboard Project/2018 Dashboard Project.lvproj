@@ -24,6 +24,8 @@
 		<Item Name="NET_Enable_System.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Enable_System.vi"/>
 		<Item Name="NET_Auto_Route.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Auto_Route.vi"/>
 		<Item Name="Test.vi" Type="VI" URL="../../../../../../../../Desktop/Test.vi"/>
+		<Item Name="NET_Limit_Switches.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Limit_Switches.vi"/>
+		<Item Name="CLUSTER_Limit_Switches.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Limit_Switches.ctl"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Property Name="NI.SortType" Type="Int">0</Property>
