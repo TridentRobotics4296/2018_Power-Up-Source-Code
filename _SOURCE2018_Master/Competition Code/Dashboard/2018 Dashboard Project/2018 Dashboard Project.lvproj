@@ -26,6 +26,8 @@
 		<Item Name="Test.vi" Type="VI" URL="../../../../../../../../Desktop/Test.vi"/>
 		<Item Name="NET_Limit_Switches.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Limit_Switches.vi"/>
 		<Item Name="CLUSTER_Limit_Switches.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Limit_Switches.ctl"/>
+		<Item Name="NET_Sensitivity.vi" Type="VI" URL="../../../Shared/Network Variables/NET_Sensitivity.vi"/>
+		<Item Name="CLUSTER_Sensitivities.ctl" Type="VI" URL="../../../RoboRio Code/TypeDef/CLUSTER_Sensitivities.ctl"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Property Name="NI.SortType" Type="Int">0</Property>
