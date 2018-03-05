@@ -747,6 +747,7 @@ AddOutputFilter chunkFilter
 			<Item Name="WC Drive_Set PIDF.vi" Type="VI" URL="../Systems/WC_Drive/WC Drive_Set PIDF.vi"/>
 			<Item Name="WC Drive_Zero Encoders.vi" Type="VI" URL="../Systems/WC_Drive/WC Drive_Zero Encoders.vi"/>
 			<Item Name="CTRE_Phoenix_MotorController_GetAnalogData.vi" Type="VI" URL="../../../../../../../../Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetAnalogData.vi"/>
+			<Item Name="NET_Cube_Steer.vi" Type="VI" URL="../../Shared/Network Variables/NET_Cube_Steer.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
