@@ -2,3 +2,8 @@
 *.aliases
 *.aliases
 _SOURCE2018_Master/Vision RoboRio/RoboRio Code/Systems/VisionHW Folder/OpenCamera.vi
+_SOURCE2018_Master/Competition Code/RoboRio Code/Systems/Autonomous/Autonomous/Loop_Auto.vi
+*.vi
+_SOURCE2018_Master/Competition Code/RoboRio Code/Systems/Rotation_Overloard/Loop_Overlord.vi
+_SOURCE2018_Master/Competition Code/RoboRio Code/Systems/Autonomous/Autonomous/Loop_Auto.vi
+_SOURCE2018_Master/Competition Code/RoboRio Code/Systems/Autonomous/Autonomous/Loop_Auto.vi
