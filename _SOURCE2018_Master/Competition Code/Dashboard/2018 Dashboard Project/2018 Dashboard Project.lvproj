@@ -95,8 +95,6 @@
 				<Item Name="FPGA_NIFPGAInterfaceFPGAResourceConstant.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/FPGA_NIFPGAInterfaceFPGAResourceConstant.vi"/>
 				<Item Name="FPGA_SystemFPGA Ref Global.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/System/FPGA_SystemFPGA Ref Global.vi"/>
 				<Item Name="FPGA_SystemFRC FPGA Ref.ctl" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/System/FPGA_SystemFRC FPGA Ref.ctl"/>
-				<Item Name="FPGA_SystemGet.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/System/FPGA_SystemGet.vi"/>
-				<Item Name="FPGA_SystemStart Async Agent.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/SystemInterfaces/System/FPGA_SystemStart Async Agent.vi"/>
 				<Item Name="Get Last Path Segment.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/Network Tables/Get Last Path Segment.vi"/>
 				<Item Name="Get System Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/sysdir.llb/Get System Directory.vi"/>
 				<Item Name="Get Tab Control Refs.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/Network Tables/Get Tab Control Refs.vi"/>
@@ -131,9 +129,6 @@
 				<Item Name="joystickAcquire.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/inputDevices.llb/joystickAcquire.vi"/>
 				<Item Name="keyboardAcquire.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/inputDevices.llb/keyboardAcquire.vi"/>
 				<Item Name="LEB Encoder.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/Network Tables/LEB Encoder.vi"/>
-				<Item Name="LVAllMonitorsDisplayTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVAllMonitorsDisplayTypeDef.ctl"/>
-				<Item Name="LVBoundsTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVBoundsTypeDef.ctl"/>
-				<Item Name="LVPositionTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVPositionTypeDef.ctl"/>
 				<Item Name="LVRectTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRectTypeDef.ctl"/>
 				<Item Name="LVRowAndColumnTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVRowAndColumnTypeDef.ctl"/>
 				<Item Name="Make All Variables Temporary.vi" Type="VI" URL="/&lt;vilib&gt;/Rock Robotics/Network Tables/Make All Variables Temporary.vi"/>
@@ -439,26 +434,6 @@
 			<Item Name="CTRE_Phoenix_MotorController_GetQuadPinData.vi" Type="VI" URL="../../../../System Drivers/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetQuadPinData.vi"/>
 			<Item Name="SRX_Read Runtime Comon Status.vi" Type="VI" URL="../../../../_SHARE ALL/RoboRio Share All/SRX Share All/SRX_Read Runtime Comon Status.vi"/>
 			<Item Name="SRX_Read Closed Loop Data.vi" Type="VI" URL="../../../../_SHARE ALL/RoboRio Share All/SRX Share All/SRX_Read Closed Loop Data.vi"/>
-			<Item Name="FP_Size Inside Bounds.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Size Inside Bounds.vi"/>
-			<Item Name="ENUM_FP_Show-Hide Select.ctl" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/TypeDefs_Utility/ENUM_FP_Show-Hide Select.ctl"/>
-			<Item Name="Cluster_FP_Scroll Bars Hide Show.ctl" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/TypeDefs_Utility/Cluster_FP_Scroll Bars Hide Show.ctl"/>
-			<Item Name="FP_Pane Scrollbars Show Hide.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Pane Scrollbars Show Hide.vi"/>
-			<Item Name="Error Eater.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/error/Error Eater.vi"/>
-			<Item Name="FP_Get Pane.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Get Pane.vi"/>
-			<Item Name="FP_Size Inside Bounds with Scrollbars.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Size Inside Bounds with Scrollbars.vi"/>
-			<Item Name="Pos_Move Window.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/Position/Pos_Move Window.vi"/>
-			<Item Name="Cluster_Pos_Top Left position.ctl" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/TypeDefs_Utility/Cluster_Pos_Top Left position.ctl"/>
-			<Item Name="Pos_Calc Point Move.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/Position/Pos_Calc Point Move.vi"/>
-			<Item Name="ENUM RB_Pos_Quadrant Position.ctl" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/TypeDefs_Utility/ENUM RB_Pos_Quadrant Position.ctl"/>
-			<Item Name="Pos_Find Point on Window.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/Position/Pos_Find Point on Window.vi"/>
-			<Item Name="FP_Move to Snap Location In WorkSpace.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Move to Snap Location In WorkSpace.vi"/>
-			<Item Name="FP_Size To Bounds.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Size To Bounds.vi"/>
-			<Item Name="FP_Pane Set Origin.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Pane Set Origin.vi"/>
-			<Item Name="FP_Size Using Position and Bounds.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Size Using Position and Bounds.vi"/>
-			<Item Name="VIRef_Find Largest Decoration.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/VIRef/VIRef_Find Largest Decoration.vi"/>
-			<Item Name="FP_Move to Point.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/FP/Support/FP_Move to Point.vi"/>
-			<Item Name="Cluster_FP Set.ctl" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Decoration Simple.vi/TypeDefs_Utility/Cluster_FP Set.ctl"/>
-			<Item Name="FP_Size VI to Deoration.vi" Type="VI" URL="../../../../_SHARE ALL/Dashboard  All/utility/FP_Size VI to Deoration.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC_Dashboard" Type="EXE">
@@ -475,7 +450,7 @@
 				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
 				<Property Name="Bld_previewCacheID" Type="Str">{F12754D6-B5E0-496F-B50C-3EDB6F368199}</Property>
-				<Property Name="Bld_version.build" Type="Int">26</Property>
+				<Property Name="Bld_version.build" Type="Int">29</Property>
 				<Property Name="Bld_version.major" Type="Int">17</Property>
 				<Property Name="Bld_version.patch" Type="Int">1</Property>
 				<Property Name="Destination[0].destName" Type="Str">Dashboard.exe</Property>
