@@ -861,6 +861,7 @@ AddOutputFilter chunkFilter
 			<Item Name="CTRE_Phoenix_MotorController_GetPulseWidthAll.vi" Type="VI" URL="../../../../../../../../Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetPulseWidthAll.vi"/>
 			<Item Name="CTRE_Phoenix_MotorController_GetQuadratureData.vi" Type="VI" URL="../../../../../../../../Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetQuadratureData.vi"/>
 			<Item Name="CTRE_Phoenix_MotorController_GetQuadPinData.vi" Type="VI" URL="../../../../../../../../Public/Documents/Cross The Road Electronics/Phoenix-LabVIEW/Motor Controller/Get/CTRE_Phoenix_MotorController_GetQuadPinData.vi"/>
+			<Item Name="NET_Rotation.vi" Type="VI" URL="../../Shared/Network Variables/NET_Rotation.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="FRC Robot Boot-up Deployment" Type="{69A947D5-514E-4E75-818E-69657C0547D8}">
