@@ -16,6 +16,7 @@
 	</Item>
 	<Item Name="Globals" Type="Folder">
 		<Item Name="Global_CMD.vi" Type="VI" URL="../Global_CMD.vi"/>
+		<Item Name="Global_SM_Output.vi" Type="VI" URL="../Global_SM_Output.vi"/>
 	</Item>
 	<Item Name="Loop_Overlord.vi" Type="VI" URL="../Loop_Overlord.vi"/>
 </Library>
