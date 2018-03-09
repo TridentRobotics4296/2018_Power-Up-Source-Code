@@ -1,0 +1,5 @@
+/home/matthew/ObjectTracker2018/jvpkg/modules/Team4296/ObjectTracker2018/postinstall
+/home/matthew/ObjectTracker2018/jvpkg/modules/Team4296/ObjectTracker2018/screenshot1.png
+/home/matthew/ObjectTracker2018/jvpkg/modules/Team4296/ObjectTracker2018/icon.png
+/home/matthew/ObjectTracker2018/jvpkg/modules/Team4296/ObjectTracker2018/ObjectTracker2018.so
+/home/matthew/ObjectTracker2018/jvpkg/share/README.txt
