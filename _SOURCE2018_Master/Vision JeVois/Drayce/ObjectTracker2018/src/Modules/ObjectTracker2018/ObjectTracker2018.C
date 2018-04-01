@@ -128,7 +128,7 @@ JEVOIS_DECLARE_PARAMETER(updateTime, double, "Amount of time in ms to send seria
     @distribution Unrestricted
     @restrictions None */
 class ObjectTracker2018 :  public jevois::StdModule,
-                      public jevois::Parameter<hrange, srange, vrange, maxnumobj, objectarea, erodesize,
+                      public jevois::Parameter<hrange, srange, vrange, basewidth, basedist, basepixelwidth, maxnumobj, objectarea, erodesize,
                                                dilatesize, debug, baseX, baseY, vpconf, updateTime>
 {
 
@@ -138,7 +138,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	 double previousClock = 0;
 	 bool resetClock = true;
 	 bool roadnav = false;
-	 bool trackball = true;
+	 bool trackcube = true;
 	 jevois::Timer itsProcessingTimer;
      std::shared_ptr<RoadFinder> itsRoadFinder;
 	 //Constuctor init road nav objects
@@ -153,7 +153,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
 	//Put all params into a struct to pass to references
 	struct parameters {
-	   jevois::Range<unsigned char> hrange, srange, vrange, ;
+	   jevois::Range<unsigned char> hrange, srange, vrange;
 	   jevois::Range<unsigned int>  objectarea, basewidth, basepixelwidth, basedist;
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
@@ -169,31 +169,31 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  {
 	  	 if(tok[1] == "roadnav") roadnav = tok[2] == "true" ? true : false;
 
-		 else if(tok[1] == "balltrack") trackball = tok[2] == "true" ? true : false;
+		 else if(tok[1] == "balltrack") trackcube = tok[2] == "true" ? true : false;
 
 		 else throw std::runtime_error("Unsupported module command [" + str + ']');
 	  }
 	  else throw std::runtime_error("Unsupported module command [" + str + ']');
 
 	}
-int focalLength = ((640 / basedist) / basewidth))
+
 
 	/**
 	  * Tracks balls with a color filter
 	  * It only returns the closest object
 	  */
-	std::string trackball(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
+	std::string trackcube(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
 	{
 	  // Initialize output
 	  std::string output = "";
 
 	  // Exit method if not specified to run
-	  if(!trackball) return output;
+	  if(!trackcube) return output;
 
 	  // Convert input image to BGR24, then to HSV:
       cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
       cv::Mat imghsv;
-	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
+	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);g
 
 	  // Threshold the HSV image to only keep pixels within the desired HSV range:
       cv::Mat imgth;
@@ -205,6 +205,10 @@ int focalLength = ((640 / basedist) / basewidth))
       cv::erode(imgth, imgth, erodeElement);
       cv::Mat dilateElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.dilatesize, params.dilatesize));
       cv::dilate(imgth, imgth, dilateElement);
+ 
+      //get focal length constant:
+      //unsigned int focalLength = 0;
+      //focalLength = ((640 / params.basedist) / params.basewidth);
 
       // Detect objects by finding contours:
       std::vector<std::vector<cv::Point> > contours;
@@ -259,7 +263,7 @@ int focalLength = ((640 / basedist) / basewidth))
 			     largestArea = area;
 				 closestObjX = x;
 				 closestObjY = y;
-				 //closestObjWidth = rwidth;
+				 closestObjWidth = rwidth;
 				 //closestObjHeight = rheight;
 				 //closestObjRatio = boxRatio;
 			 }
@@ -275,7 +279,7 @@ int focalLength = ((640 / basedist) / basewidth))
 
 			//unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * w)/closestObjHeight; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
-			unsigned int ClosestObjDistance = ((basewidth * focalLength) / x)
+			unsigned int ClosestObjDist = 960 / closestObjWidth;
 			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
 			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
 			////unsinged int closestObjDistance = # / ClosestObjwidth
@@ -403,6 +407,9 @@ int focalLength = ((640 / basedist) / basewidth))
 	  params.hrange = hrange::get();
 	  params.vrange = vrange::get();
 	  params.srange = srange::get();
+	  params.basewidth = basewidth::get();
+	  params.basedist = basedist::get();
+	  params.basepixelwidth = basepixelwidth::get();
 	  params.dilatesize = dilatesize::get();
 	  params.erodesize = erodesize::get();
 	  params.objectarea = objectarea::get();
@@ -416,7 +423,7 @@ int focalLength = ((640 / basedist) / basewidth))
       inframe.done();
 
 	  // Run method on thread
-	  auto trackballFut = std::async(&ObjectTracker2018::trackball, this, inimg, outimg, w, h, params);
+	  auto trackcubeFut = std::async(&ObjectTracker2018::trackcube, this, inimg, outimg, w, h, params);
 
 	  // Run method on thread
 	  auto roadNavFut = std::async(&ObjectTracker2018::roadNav, this, inimg, outimg, w, h);
@@ -424,7 +431,7 @@ int focalLength = ((640 / basedist) / basewidth))
 	  serMessage = "";
 
 	  if(roadnav) serMessage += roadNavFut.get();
-	  if(trackball) serMessage += trackballFut.get();
+	  if(trackcube) serMessage += trackcubeFut.get();
 
 	  sendSerial(serMessage);
 
