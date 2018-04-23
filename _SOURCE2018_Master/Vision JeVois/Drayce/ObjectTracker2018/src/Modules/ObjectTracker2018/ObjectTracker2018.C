@@ -146,10 +146,14 @@ JEVOIS_DECLARE_PARAMETER(updateTime, double, "Amount of time in ms to send seria
     @restrictions None */
 class ObjectTracker2018 :  public jevois::StdModule,
 <<<<<<< HEAD
+<<<<<<< HEAD
                       public jevois::Parameter<hrange, srange, vrange, basewidth, basedist, basepixelwidth, maxnumobj, objectarea, erodesize,
 =======
                       public jevois::Parameter<hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat, maxnumobj, objectarea, erodesize,
 >>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
+=======
+                      public jevois::Parameter<hrange, srange, vrange, maxnumobj, objectarea, erodesize,
+>>>>>>> parent of 0c820c3... panic attack
                                                dilatesize, debug, baseX, baseY, vpconf, updateTime>
 {	
 
@@ -159,7 +163,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	 double previousClock = 0;
 	 bool resetClock = true;
 	 bool roadnav = false;
-	 bool trackcube = true;
+	 bool trackball = true;
 	 jevois::Timer itsProcessingTimer;
      std::shared_ptr<RoadFinder> itsRoadFinder;
 	 //Constuctor init road nav objects
@@ -175,7 +179,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	//Put all params into a struct to pass to references
 	struct parameters {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	   jevois::Range<unsigned char> hrange, srange, vrange;
+=======
+	   jevois::Range<unsigned char> hrange, srange, vrange, ;
+>>>>>>> parent of 0c820c3... panic attack
 	   jevois::Range<unsigned int>  objectarea, basewidth, basepixelwidth, basedist;
 =======
 	   jevois::Range<unsigned char> hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat;
@@ -196,7 +204,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  	 if(tok[1] == "roadnav") roadnav = tok[2] == "true" ? true : false;
 <<<<<<< HEAD
 
-		 else if(tok[1] == "balltrack") trackcube = tok[2] == "true" ? true : false;
+		 else if(tok[1] == "balltrack") trackball = tok[2] == "true" ? true : false;
 
 =======
 		 
@@ -209,13 +217,17 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+int focalLength = ((640 / basedist) / basewidth))
+>>>>>>> parent of 0c820c3... panic attack
 
 	/**
 	  * Tracks balls with a color filter
 	  * It only returns the closest object
 	  */
-	std::string trackcube(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
+	std::string trackball(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
 	{
 =======
 	
@@ -230,13 +242,17 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  std::string output = "";
 	  
 	  // Exit method if not specified to run
+<<<<<<< HEAD
 	  if(!trackcube) return output;
 <<<<<<< HEAD
+=======
+	  if(!trackball) return output;
+>>>>>>> parent of 0c820c3... panic attack
 
 	  // Convert input image to BGR24, then to HSV:
       cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
       cv::Mat imghsv;
-	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);g
+	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
 
 =======
 	  
@@ -256,10 +272,6 @@ class ObjectTracker2018 :  public jevois::StdModule,
       cv::erode(imgth, imgth, erodeElement);
       cv::Mat dilateElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.dilatesize, params.dilatesize));
       cv::dilate(imgth, imgth, dilateElement);
- 
-      //get focal length constant:
-      //unsigned int focalLength = 0;
-      //focalLength = ((640 / params.basedist) / params.basewidth);
 
       // Detect objects by finding contours:
       std::vector<std::vector<cv::Point> > contours; 
@@ -314,7 +326,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			     largestArea = area;
 				 closestObjX = x;
 				 closestObjY = y;
-				 closestObjWidth = rwidth;
+				 //closestObjWidth = rwidth;
 				 //closestObjHeight = rheight;
 				 //closestObjRatio = boxRatio;
 			 }
@@ -331,7 +343,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			//unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * w)/closestObjHeight; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			unsigned int ClosestObjDist = 960 / closestObjWidth;
+=======
+			unsigned int ClosestObjDistance = ((basewidth * focalLength) / x)
+>>>>>>> parent of 0c820c3... panic attack
 			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
 			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
 			////unsinged int closestObjDistance = # / ClosestObjwidth
@@ -468,6 +484,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  params.vrange = vrange::get();
 	  params.srange = srange::get();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	  params.basewidth = basewidth::get();
 	  params.basedist = basedist::get();
 	  params.basepixelwidth = basepixelwidth::get();
@@ -476,6 +493,8 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  params.vrangePlat = vrangePlat::get();
 	  params.rrangePlat = rrangePlat::get();
 >>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
+=======
+>>>>>>> parent of 0c820c3... panic attack
 	  params.dilatesize = dilatesize::get();
 	  params.erodesize = erodesize::get();
 	  params.objectarea = objectarea::get();
@@ -490,7 +509,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
 	  // Run method on thread
 <<<<<<< HEAD
+<<<<<<< HEAD
 	  auto trackcubeFut = std::async(&ObjectTracker2018::trackcube, this, inimg, outimg, w, h, params);
+=======
+	  auto trackballFut = std::async(&ObjectTracker2018::trackball, this, inimg, outimg, w, h, params);
+>>>>>>> parent of 0c820c3... panic attack
 
 =======
 	  auto trackCubeFut = std::async(&ObjectTracker2018::trackCube, this, inimg, outimg, w, h, params);
@@ -503,7 +526,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	
 	  if(roadnav) serMessage += roadNavFut.get();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	  if(trackcube) serMessage += trackcubeFut.get();
+=======
+	  if(trackball) serMessage += trackballFut.get();
+>>>>>>> parent of 0c820c3... panic attack
 
 =======
 	  if(trackcube) serMessage += trackCubeFut.get();
