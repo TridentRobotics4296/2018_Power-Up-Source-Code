@@ -220,6 +220,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  int closestObjX = 0;
 	  int closestObjY = 0;
 	  int largestArea = 0;
+	  int rwidth = 0;
 	  // Identify the "good" objects:
       if (hierarchy.size() > 0 && hierarchy.size() <= params.maxnumobj)
       {
@@ -253,7 +254,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			     largestArea = area;
 				 closestObjX = x;
 				 closestObjY = y;
-				 closestObjWidth = rwidth;
+				 //closestObjWidth = rwidth;
 				 //closestObjHeight = rheight;
 				 //closestObjRatio = boxRatio;
 			 }
@@ -267,7 +268,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			
 			signed refX = params.baseX;
 			
-			unsigned int closestObjDist = 960/closestObjWidth; // Calculation for the distance of the object
+			unsigned int closestObjDist = 960/rwidth; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
 			
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
@@ -282,7 +283,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 							  " e = " + std::to_string(error);*/
 			output = "CUBE: e = " + std::to_string(error) +
 			         " a = " + std::to_string(largestArea) +
-					 " w = " + std::to_string(closestObjWidth) +
+					 " w = " + std::to_string(rwidth) +
 					 " d = " + std::to_string(closestObjDist);
 	   }
 	   
