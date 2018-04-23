@@ -46,6 +46,7 @@ JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S value
 <<<<<<< HEAD
 JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
                          jevois::Range<unsigned char>(50, 255), ParamCateg);
+<<<<<<< HEAD
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(basewidth, jevois::Range<unsigned int>, "relates distance formula",
 						 4.5, ParamCateg);
@@ -74,6 +75,8 @@ JEVOIS_DECLARE_PARAMETER(rrangePlat, jevois::Range<unsigned char>, "Range of rat
 JEVOIS_DECLARE_PARAMETER(hrangePlat, jevois::Range<unsigned char>, "Range of H values for platforms",
                          jevois::Range<unsigned char>(200, 255), ParamCateg);
 >>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
+=======
+>>>>>>> parent of aa33908... more stuff
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
@@ -183,12 +186,16 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	   jevois::Range<unsigned char> hrange, srange, vrange;
 =======
 	   jevois::Range<unsigned char> hrange, srange, vrange, ;
+<<<<<<< HEAD
 >>>>>>> parent of 0c820c3... panic attack
 	   jevois::Range<unsigned int>  objectarea, basewidth, basepixelwidth, basedist;
 =======
 	   jevois::Range<unsigned char> hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat;
 	   jevois::Range<unsigned int>  objectarea;
 >>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
+=======
+	   jevois::Range<unsigned int>  objectarea;
+>>>>>>> parent of aa33908... more stuff
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
 	   float vpconf;
@@ -218,13 +225,16 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 int focalLength = ((640 / basedist) / basewidth))
 >>>>>>> parent of 0c820c3... panic attack
+=======
+>>>>>>> parent of aa33908... more stuff
 
 	/**
-	  * Tracks balls with a color filter
+	  * Tracks balls with a color filter then restricting object ratio
 	  * It only returns the closest object
 	  */
 	std::string trackball(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
@@ -344,13 +354,16 @@ int focalLength = ((640 / basedist) / basewidth))
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			unsigned int ClosestObjDist = 960 / closestObjWidth;
 =======
 			unsigned int ClosestObjDistance = ((basewidth * focalLength) / x)
 >>>>>>> parent of 0c820c3... panic attack
+=======
+>>>>>>> parent of aa33908... more stuff
 			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
 			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
-			////unsinged int closestObjDistance = # / ClosestObjwidth
+			////unsinged int closestObjDistance = ClosestObjwidth / 
 			////unsinged int Throw Distance =  (pow((pow(ClosestObjDistance, 2.0)) - (7 * ClosestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.05) - (3.5 * 12))
 			//that was the distance formula  , totally don't worry about it for now, but it checks out
 
@@ -369,6 +382,7 @@ int focalLength = ((640 / basedist) / basewidth))
 							  " e = " + std::to_string(error);*/
 <<<<<<< HEAD
 			output = "BALL: e = " + std::to_string(error) +
+<<<<<<< HEAD
 			         " a = " + std::to_string(largestArea) +
 					 " w = " + std::to_string(closestObjWidth) +
 					 " x = " + std::to_string(closestObjX - refX) +
@@ -379,6 +393,9 @@ int focalLength = ((640 / basedist) / basewidth))
 			output = "CUBE: e = " + std::to_string(error) +
 			         " a = " + std::to_string(largestArea);
 >>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
+=======
+			         " a = " + std::to_string(largestArea);
+>>>>>>> parent of aa33908... more stuff
 	   }
 	   
 	    // Possibly wait until all contours are drawn, if they had been requested:
