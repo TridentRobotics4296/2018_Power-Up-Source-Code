@@ -35,14 +35,15 @@
 static jevois::ParameterCategory const ParamCateg("ObjectTracker2018 Options");
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Ball",
-                         jevois::Range<unsigned char>(0, 45), ParamCateg);
+JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Cubes",
+                         jevois::Range<unsigned char>(33, 60), ParamCateg);
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Ball",
+JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Cubes",
                          jevois::Range<unsigned char>(114, 195), ParamCateg);
 
 //! Parameter \relates ObjectTracker
+<<<<<<< HEAD
 JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
                          jevois::Range<unsigned char>(50, 255), ParamCateg);
 //! Parameter \relates ObjectTracker
@@ -57,6 +58,22 @@ JEVOIS_DECLARE_PARAMETER(basedist, jevois::Range<unsigned int>, " width of ball 
 JEVOIS_DECLARE_PARAMETER(basepixelwidth, jevois::Range<unsigned int>, "relates distance formula",
 						 640, ParamCateg);
 						 
+=======
+JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Cubes",
+                         jevois::Range<unsigned char>(136, 255), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(vrangePlat, jevois::Range<unsigned char>, "Range of V values for platforms",
+                         jevois::Range<unsigned char>(200, 255), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(rrangePlat, jevois::Range<unsigned char>, "Range of ratios for platform width to height",
+                         jevois::Range<unsigned char>(60, 200), ParamCateg);
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(hrangePlat, jevois::Range<unsigned char>, "Range of H values for platforms",
+                         jevois::Range<unsigned char>(200, 255), ParamCateg);
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
@@ -79,13 +96,13 @@ JEVOIS_DECLARE_PARAMETER(debug, bool, "Show contours of all object candidates if
                          true, ParamCateg);
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(baseX, size_t, "X coordinate to base objects off of",
+JEVOIS_DECLARE_PARAMETER(baseX, size_t, "X coordinate to base objects off of", 
 						 140, ParamCateg);
 
 //! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(baseY, size_t, "Y coordinate to base objects off of",
+JEVOIS_DECLARE_PARAMETER(baseY, size_t, "Y coordinate to base objects off of", 
 						 100, ParamCateg);
-
+						 
 //! Parameter \relates RoadNavigation
 JEVOIS_DECLARE_PARAMETER(vpconf, float, "Minimum vanishing point confidence required to send a serial message",
                          0.0F, roadfinder::ParamCateg);
@@ -128,9 +145,13 @@ JEVOIS_DECLARE_PARAMETER(updateTime, double, "Amount of time in ms to send seria
     @distribution Unrestricted
     @restrictions None */
 class ObjectTracker2018 :  public jevois::StdModule,
+<<<<<<< HEAD
                       public jevois::Parameter<hrange, srange, vrange, basewidth, basedist, basepixelwidth, maxnumobj, objectarea, erodesize,
+=======
+                      public jevois::Parameter<hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat, maxnumobj, objectarea, erodesize,
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
                                                dilatesize, debug, baseX, baseY, vpconf, updateTime>
-{
+{	
 
   public:
      using jevois::StdModule::StdModule;
@@ -150,32 +171,44 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
     //! Virtual destructor for safe inheritance
     virtual ~ObjectTracker2018() { }
-
+	
 	//Put all params into a struct to pass to references
 	struct parameters {
+<<<<<<< HEAD
 	   jevois::Range<unsigned char> hrange, srange, vrange;
 	   jevois::Range<unsigned int>  objectarea, basewidth, basepixelwidth, basedist;
+=======
+	   jevois::Range<unsigned char> hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat;
+	   jevois::Range<unsigned int>  objectarea;
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
 	   float vpconf;
 	};
-
+	
     void parseSerial(std::string const & str, std::shared_ptr<jevois::UserInterface> s) override
     {
       std::vector<std::string> tok = jevois::split(str);
       if (tok.empty()) throw std::runtime_error("Unsupported empty module command");
-
+	  
 	  if(tok[0] == "cam0")
 	  {
 	  	 if(tok[1] == "roadnav") roadnav = tok[2] == "true" ? true : false;
+<<<<<<< HEAD
 
 		 else if(tok[1] == "balltrack") trackcube = tok[2] == "true" ? true : false;
 
+=======
+		 
+		 else if(tok[1] == "cubetrack") trackcube = tok[2] == "true" ? true : false;
+		 
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 		 else throw std::runtime_error("Unsupported module command [" + str + ']');
 	  }
 	  else throw std::runtime_error("Unsupported module command [" + str + ']');
-
+	  
 	}
+<<<<<<< HEAD
 
 
 	/**
@@ -184,22 +217,40 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  */
 	std::string trackcube(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
 	{
+=======
+	
+	/**
+	  * Tracks cubes with a color filter then restricting object ratio
+	  * It only returns the closest object
+	  */
+	std::string trackCube(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
+	{ 
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	  // Initialize output
 	  std::string output = "";
-
+	  
 	  // Exit method if not specified to run
 	  if(!trackcube) return output;
+<<<<<<< HEAD
 
 	  // Convert input image to BGR24, then to HSV:
       cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
       cv::Mat imghsv;
 	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);g
 
+=======
+	  
+	  // Convert input image to BGR24, then to HSV:
+      cv::Mat imgbgr = jevois::rawimage::convertToCvBGR(inimg);
+      cv::Mat imghsv; 
+	  cv::cvtColor(imgbgr, imghsv, cv::COLOR_BGR2HSV);
+	  
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	  // Threshold the HSV image to only keep pixels within the desired HSV range:
       cv::Mat imgth;
       cv::inRange(imghsv, cv::Scalar(params.hrange.min(), params.srange.min(), params.vrange.min()),
                   cv::Scalar(params.hrange.max(), params.srange.max(), params.vrange.max()), imgth);
-
+      
       // Apply morphological operations to cleanup the image noise:
       cv::Mat erodeElement = getStructuringElement(cv::MORPH_RECT, cv::Size(params.erodesize, params.erodesize));
       cv::erode(imgth, imgth, erodeElement);
@@ -211,7 +262,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
       //focalLength = ((640 / params.basedist) / params.basewidth);
 
       // Detect objects by finding contours:
-      std::vector<std::vector<cv::Point> > contours;
+      std::vector<std::vector<cv::Point> > contours; 
 	  std::vector<cv::Vec4i> hierarchy;
       cv::findContours(imgth, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 
@@ -224,7 +275,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
             for (size_t i = 0; i < contours.size(); ++i)
               cv::drawContours(outuc2, contours, i, jevois::yuyv::LightPink, 2, 8, hierarchy);
       });
-
+      
       //Reset vars
       int numobj = 0;
 	  int closestObjX = 0;
@@ -241,7 +292,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
         {
           cv::Moments moment = cv::moments((cv::Mat)contours[index]);
           double area = moment.m00;
-
+		  
 		  //Check if area is within range
           if (params.objectarea.contains(int(area + 0.4999)) && area > refArea)
           {
@@ -249,13 +300,13 @@ class ObjectTracker2018 :  public jevois::StdModule,
 		     x = moment.m10 / area + 0.4999;
 		     y = moment.m01 / area + 0.4999;
 		     refArea = area;
-
+			 
 			 //Create bounding rects
 			 cv::Rect r = cv::boundingRect(contours[index]);
 		     signed rwidth = r.br().x - r.tl().x;
 		     double rheight = r.br().y - r.tl().y;
 		     double boxRatio = rwidth/rheight;
-
+		     
 			 //Enforce bounding box ratio and only take largest box
 			 if(area > largestArea && boxRatio > 0.75 && boxRatio < 1.5 && x != 0 && y != 0)
 			 {
@@ -269,16 +320,17 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			 }
 		  }
         }
-
+		
 		// If there is more than one object
         if(numobj >= 1)
 		{
 		    numobj = 1; // Set to one because we only take largest value
-
+			
 			signed refX = params.baseX;
-
+			
 			//unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * w)/closestObjHeight; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
+<<<<<<< HEAD
 			unsigned int ClosestObjDist = 960 / closestObjWidth;
 			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
 			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
@@ -286,16 +338,20 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			////unsinged int Throw Distance =  (pow((pow(ClosestObjDistance, 2.0)) - (7 * ClosestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.05) - (3.5 * 12))
 			//that was the distance formula  , totally don't worry about it for now, but it checks out
 
+=======
+			
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
-
+			
 		   // Send serial messages to be parsed later
-		   /*output ="BALL: " + " w = " + std::to_string(closestObjWidth) +
+		   /*output ="CUBE: " + " w = " + std::to_string(closestObjWidth) +
 		   					  " h = " + std::to_string(closestObjHeight) +
 							  " r = " + std::to_string(closestObjRatio) +
 							  " x = " + std::to_string(closestObjX - refX) +
 							  " y = " + std::to_string(closestObjY - refY) +
 							  " d = " + std::to_string(closestObjDist)
 							  " e = " + std::to_string(error);*/
+<<<<<<< HEAD
 			output = "BALL: e = " + std::to_string(error) +
 			         " a = " + std::to_string(largestArea) +
 					 " w = " + std::to_string(closestObjWidth) +
@@ -303,37 +359,41 @@ class ObjectTracker2018 :  public jevois::StdModule,
 					 " d = " + std::to_string(closestObjDist);
 				
 					
+=======
+			output = "CUBE: e = " + std::to_string(error) +
+			         " a = " + std::to_string(largestArea);
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	   }
-
+	   
 	    // Possibly wait until all contours are drawn, if they had been requested:
         if (draw_fut.valid()) draw_fut.get();
-
+	    
     }
-
+	
 	// Draw circle around center of (baseX, baseY)
 	  jevois::rawimage::drawCircle(outimg, params.baseX, params.baseY, 5, 1, jevois::yuyv::LightPurple);
-
+	
 	  // Show number of detected objects:
       jevois::rawimage::writeText(outimg, "Detected " + std::to_string(numobj) + " objects.",
                                   3, h + 2, jevois::yuyv::White);
-	  // Return the output speed
+	  // Return the output speed							  
 	  return output;
 	}
-
+	
 	/**
 	  * Track the vanishing point on the horizion and give
 	  * the coordinates from the center
 	  */
 	std::string roadNav(jevois::RawImage inimg, jevois::RawImage outimg, unsigned int const w, unsigned int const h)
-	{
+	{ 
 	   // Init the output string
 	   std::string output = "";
-
+	   
 	   // Exit method if not specified to run
 	  if(!roadnav) return output;
 
        itsProcessingTimer.start();
-
+      
        // Convert it to gray:
        cv::Mat imggray = jevois::rawimage::convertToCvGray(inimg);
 
@@ -341,15 +401,15 @@ class ObjectTracker2018 :  public jevois::StdModule,
        // outimg to be ready. It's ok to modify the input image, its buffer will be sent back to the camera driver for
        // capture once we are done here, and will be overwritten anyway:
        itsRoadFinder->process(imggray, outimg);
-
+	   
        unsigned short const txtcol = 0xa0ff;
-
+      
        // Clear out the bottom section of the image:
        jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, jevois::yuyv::Black);
 
        // Get the vanishing point and send to serial:
        std::pair<Point2D<int>, float> vp = itsRoadFinder->getCurrVanishingPoint();
-
+      
        // Write some extra info about the vp:
 	   signed int roadX = vp.first.i;
 	   signed int width = w;
@@ -360,14 +420,14 @@ class ObjectTracker2018 :  public jevois::StdModule,
        float const tpx = itsRoadFinder->getFilteredTargetX();
        otxt << cp.i << " TGT=" << tp.i << " fTPX=" << tpx;
        jevois::rawimage::writeText(outimg, otxt.str().c_str(), 3, h - 13, txtcol);
-
+	   
 	   // Set the vp to be based aroung the center of the screen
 	   output = "   RN: " + std::to_string(roadX - (width/2)) + "   ";
-
+	   
 	   // Return the serial output string
 	   return output;
 	}
-
+    
 
     //! Processing function - with USB output
     virtual void process(jevois::InputFrame && inframe, jevois::OutputFrame && outframe) override
@@ -382,11 +442,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	   }
 
 	  parameters params;
-
+	
       timer.start();
 
 	  // Wait for next available camera image. Any resolution ok, but require YUYV since we assume it for drawings:
-      jevois::RawImage inimg = inframe.get();
+      jevois::RawImage inimg = inframe.get(); 
 	  unsigned int const w = inimg.width, h = inimg.height;
       inimg.require("input", w, h, V4L2_PIX_FMT_YUYV);
 
@@ -396,7 +456,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
           outimg = outframe.get();
           outimg.require("output", w, h, inimg.fmt);
           jevois::rawimage::paste(inimg, outimg, 0, 0);
-          jevois::rawimage::writeText(outimg, "Swift Ball Tracker", 3, 3, jevois::yuyv::White);
+          jevois::rawimage::writeText(outimg, "Team 4296 Cube Tracker", 3, 3, jevois::yuyv::White);
           jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, 0x8000);
         });
 
@@ -407,9 +467,15 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  params.hrange = hrange::get();
 	  params.vrange = vrange::get();
 	  params.srange = srange::get();
+<<<<<<< HEAD
 	  params.basewidth = basewidth::get();
 	  params.basedist = basedist::get();
 	  params.basepixelwidth = basepixelwidth::get();
+=======
+	  params.hrangePlat = hrangePlat::get();
+	  params.vrangePlat = vrangePlat::get();
+	  params.rrangePlat = rrangePlat::get();
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	  params.dilatesize = dilatesize::get();
 	  params.erodesize = erodesize::get();
 	  params.objectarea = objectarea::get();
@@ -423,26 +489,36 @@ class ObjectTracker2018 :  public jevois::StdModule,
       inframe.done();
 
 	  // Run method on thread
+<<<<<<< HEAD
 	  auto trackcubeFut = std::async(&ObjectTracker2018::trackcube, this, inimg, outimg, w, h, params);
 
+=======
+	  auto trackCubeFut = std::async(&ObjectTracker2018::trackCube, this, inimg, outimg, w, h, params);
+	  
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	  // Run method on thread
 	  auto roadNavFut = std::async(&ObjectTracker2018::roadNav, this, inimg, outimg, w, h);
-
+	
 	  serMessage = "";
-
+	
 	  if(roadnav) serMessage += roadNavFut.get();
+<<<<<<< HEAD
 	  if(trackcube) serMessage += trackcubeFut.get();
 
+=======
+	  if(trackcube) serMessage += trackCubeFut.get();
+	  
+>>>>>>> parent of e86ced0... drayce distance formula messed with in ObjectTracker2018.C
 	  sendSerial(serMessage);
 
 	 // Show processing fps:
       std::string const & fpscpu = timer.stop();
       jevois::rawimage::writeText(outimg, fpscpu, 3, h - 23, jevois::yuyv::White);
-
+      
       // Send the output image with our processing results to the host over USB:
       outframe.send();
     }
-
+	
 };
 
 // Allow the module to be loaded as a shared object (.so) file:
