@@ -45,6 +45,18 @@ JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S value
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
                          jevois::Range<unsigned char>(50, 255), ParamCateg);
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(basewidth, jevois::Range<unsigned int>, "relates distance formula",
+						 4.5, ParamCateg);
+						 
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(basedist, jevois::Range<unsigned int>, " width of ball (inches) relates distance formula",
+						 30, ParamCateg);	
+
+//! Parameter \relates ObjectTracker
+JEVOIS_DECLARE_PARAMETER(basepixelwidth, jevois::Range<unsigned int>, "relates distance formula",
+						 640, ParamCateg);
+						 
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
@@ -142,7 +154,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	//Put all params into a struct to pass to references
 	struct parameters {
 	   jevois::Range<unsigned char> hrange, srange, vrange, ;
-	   jevois::Range<unsigned int>  objectarea;
+	   jevois::Range<unsigned int>  objectarea, basewidth, basepixelwidth, basedist;
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
 	   float vpconf;
@@ -164,9 +176,10 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  else throw std::runtime_error("Unsupported module command [" + str + ']');
 
 	}
+int focalLength = ((640 / basedist) / basewidth))
 
 	/**
-	  * Tracks balls with a color filter then restricting object ratio
+	  * Tracks balls with a color filter
 	  * It only returns the closest object
 	  */
 	std::string trackball(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
@@ -262,9 +275,10 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
 			//unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * w)/closestObjHeight; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
+			unsigned int ClosestObjDistance = ((basewidth * focalLength) / x)
 			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
 			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
-			////unsinged int closestObjDistance = ClosestObjwidth / 
+			////unsinged int closestObjDistance = # / ClosestObjwidth
 			////unsinged int Throw Distance =  (pow((pow(ClosestObjDistance, 2.0)) - (7 * ClosestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.05) - (3.5 * 12))
 			//that was the distance formula  , totally don't worry about it for now, but it checks out
 
@@ -279,7 +293,12 @@ class ObjectTracker2018 :  public jevois::StdModule,
 							  " d = " + std::to_string(closestObjDist)
 							  " e = " + std::to_string(error);*/
 			output = "BALL: e = " + std::to_string(error) +
-			         " a = " + std::to_string(largestArea);
+			         " a = " + std::to_string(largestArea) +
+					 " w = " + std::to_string(closestObjWidth) +
+					 " x = " + std::to_string(closestObjX - refX) +
+					 " d = " + std::to_string(closestObjDist);
+				
+					
 	   }
 
 	    // Possibly wait until all contours are drawn, if they had been requested:
