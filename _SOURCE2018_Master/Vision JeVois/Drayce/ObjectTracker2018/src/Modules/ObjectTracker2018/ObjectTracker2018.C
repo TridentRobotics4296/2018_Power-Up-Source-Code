@@ -36,7 +36,7 @@ static jevois::ParameterCategory const ParamCateg("ObjectTracker2018 Options");
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Cubes",
-                         jevois::Range<unsigned char>(33, 60), ParamCateg);
+                         jevois::Range<unsigned char>(0, 60), ParamCateg);
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Cubes",
@@ -44,7 +44,7 @@ JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S value
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Cubes",
-                         jevois::Range<unsigned char>(136, 255), ParamCateg);
+                         jevois::Range<unsigned char>(55, 255), ParamCateg);
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(vrangePlat, jevois::Range<unsigned char>, "Range of V values for platforms",
@@ -253,7 +253,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			     largestArea = area;
 				 closestObjX = x;
 				 closestObjY = y;
-				 //closestObjWidth = rwidth;
+				 closestObjWidth = rwidth;
 				 //closestObjHeight = rheight;
 				 //closestObjRatio = boxRatio;
 			 }
@@ -267,7 +267,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			
 			signed refX = params.baseX;
 			
-			//unsigned int closestObjDist = ((closestObjRatio > .9 ? 15 : 18.5) * w)/closestObjHeight; // Calculation for the distance of the object
+			unsigned int closestObjDist = 960/closestObjWidth; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
 			
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
@@ -278,10 +278,12 @@ class ObjectTracker2018 :  public jevois::StdModule,
 							  " r = " + std::to_string(closestObjRatio) +
 							  " x = " + std::to_string(closestObjX - refX) +
 							  " y = " + std::to_string(closestObjY - refY) +
-							  " d = " + std::to_string(closestObjDist)
+							  " d = " + std::to_string(closestObjDist) +
 							  " e = " + std::to_string(error);*/
 			output = "CUBE: e = " + std::to_string(error) +
-			         " a = " + std::to_string(largestArea);
+			         " a = " + std::to_string(largestArea) +
+					 " w = " + std::to_string(closestObjWidth) +
+					 " d = " + std::to_string(closestObjDist);
 	   }
 	   
 	    // Possibly wait until all contours are drawn, if they had been requested:
