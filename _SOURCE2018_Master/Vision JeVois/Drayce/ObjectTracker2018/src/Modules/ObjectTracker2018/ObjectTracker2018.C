@@ -43,6 +43,7 @@ JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S value
                          jevois::Range<unsigned char>(114, 195), ParamCateg);
 
 //! Parameter \relates ObjectTracker
+<<<<<<< HEAD
 JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Cubes",
                          jevois::Range<unsigned char>(55, 255), ParamCateg);
 
@@ -57,6 +58,10 @@ JEVOIS_DECLARE_PARAMETER(rrangePlat, jevois::Range<unsigned char>, "Range of rat
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(hrangePlat, jevois::Range<unsigned char>, "Range of H values for platforms",
                          jevois::Range<unsigned char>(200, 255), ParamCateg);
+=======
+JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
+                         jevois::Range<unsigned char>(50, 255), ParamCateg);
+>>>>>>> parent of aa33908... more stuff
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
@@ -148,7 +153,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	
 	//Put all params into a struct to pass to references
 	struct parameters {
+<<<<<<< HEAD
 	   jevois::Range<unsigned char> hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat;
+=======
+	   jevois::Range<unsigned char> hrange, srange, vrange, ;
+>>>>>>> parent of aa33908... more stuff
 	   jevois::Range<unsigned int>  objectarea;
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
@@ -171,9 +180,15 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  else throw std::runtime_error("Unsupported module command [" + str + ']');
 	  
 	}
+<<<<<<< HEAD
 	
 	/**
 	  * Tracks cubes with a color filter then restricting object ratio
+=======
+
+	/**
+	  * Tracks balls with a color filter then restricting object ratio
+>>>>>>> parent of aa33908... more stuff
 	  * It only returns the closest object
 	  */
 	std::string trackCube(jevois::RawImage inimg, jevois::RawImage outimg, double const w, unsigned int const h, parameters params)
@@ -270,7 +285,16 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			
 			unsigned int closestObjDist = 960/rwidth; // Calculation for the distance of the object
 		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
+<<<<<<< HEAD
 			
+=======
+			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
+			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
+			////unsinged int closestObjDistance = ClosestObjwidth / 
+			////unsinged int Throw Distance =  (pow((pow(ClosestObjDistance, 2.0)) - (7 * ClosestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.05) - (3.5 * 12))
+			//that was the distance formula  , totally don't worry about it for now, but it checks out
+
+>>>>>>> parent of aa33908... more stuff
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
 			
 		   // Send serial messages to be parsed later
@@ -281,10 +305,15 @@ class ObjectTracker2018 :  public jevois::StdModule,
 							  " y = " + std::to_string(closestObjY - refY) +
 							  " d = " + std::to_string(closestObjDist) +
 							  " e = " + std::to_string(error);*/
+<<<<<<< HEAD
 			output = "CUBE: e = " + std::to_string(error) +
 			         " a = " + std::to_string(largestArea) +
 					 " w = " + std::to_string(rwidth) +
 					 " d = " + std::to_string(closestObjDist);
+=======
+			output = "BALL: e = " + std::to_string(error) +
+			         " a = " + std::to_string(largestArea);
+>>>>>>> parent of aa33908... more stuff
 	   }
 	   
 	    // Possibly wait until all contours are drawn, if they had been requested:
