@@ -34,18 +34,6 @@
 
 static jevois::ParameterCategory const ParamCateg("ObjectTracker2018 Options");
 
-//! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Cubes",
-                         jevois::Range<unsigned char>(0, 60), ParamCateg);
-
-//! Parameter \relates ObjectTracker
-JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Cubes",
-                         jevois::Range<unsigned char>(114, 195), ParamCateg);
-
-//! Parameter \relates ObjectTracker
-<<<<<<< HEAD
-JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Cubes",
-                         jevois::Range<unsigned char>(55, 255), ParamCateg);
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(vrangePlat, jevois::Range<unsigned char>, "Range of V values for platforms",
@@ -58,10 +46,6 @@ JEVOIS_DECLARE_PARAMETER(rrangePlat, jevois::Range<unsigned char>, "Range of rat
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(hrangePlat, jevois::Range<unsigned char>, "Range of H values for platforms",
                          jevois::Range<unsigned char>(200, 255), ParamCateg);
-=======
-JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
-                         jevois::Range<unsigned char>(50, 255), ParamCateg);
->>>>>>> parent of aa33908... more stuff
 
 //! Parameter \relates ObjectTracker
 JEVOIS_DECLARE_PARAMETER(maxnumobj, size_t, "Max number of objects to declare a clean image",
@@ -98,6 +82,22 @@ JEVOIS_DECLARE_PARAMETER(vpconf, float, "Minimum vanishing point confidence requ
 JEVOIS_DECLARE_PARAMETER(updateTime, double, "Amount of time in ms to send serial messages",
                          50, ParamCateg);
 
+//Drayce, here are any parameters that you may need
+JEVOIS_DECLARE_PARAMETER(baseWidthPixels, int, "When you take your baseline measurement, set this to the width of the object in pixels",
+                         200, ParamCateg);
+
+JEVOIS_DECLARE_PARAMETER(baseDistanceInches, int, "When you take your baseline measurement, set this to the distance that the ball was from the camera in inches",
+                         10, ParamCateg);
+
+JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Cubes",
+                         jevois::Range<unsigned char>( /*default min*/0, /*default max*/60), ParamCateg);
+
+JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Cubes",
+                         jevois::Range<unsigned char>(/*default min*/114, /*default max*/195), ParamCateg);
+
+JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
+                         jevois::Range<unsigned char>(/*default min*/50, /*default max*/255), ParamCateg);
+
 // icon by Catalin Fertu in cinema at flaticon
 
 //! JeVois sample module
@@ -129,7 +129,7 @@ JEVOIS_DECLARE_PARAMETER(updateTime, double, "Amount of time in ms to send seria
     @restrictions None */
 class ObjectTracker2018 :  public jevois::StdModule,
                       public jevois::Parameter<hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat, maxnumobj, objectarea, erodesize,
-                                               dilatesize, debug, baseX, baseY, vpconf, updateTime>
+                                               dilatesize, debug, baseX, baseY, vpconf, updateTime, baseDistanceInches, baseWidthPixels>
 {	
 
   public:
@@ -153,11 +153,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	
 	//Put all params into a struct to pass to references
 	struct parameters {
-<<<<<<< HEAD
 	   jevois::Range<unsigned char> hrange, srange, vrange, vrangePlat, rrangePlat, hrangePlat;
-=======
-	   jevois::Range<unsigned char> hrange, srange, vrange, ;
->>>>>>> parent of aa33908... more stuff
 	   jevois::Range<unsigned int>  objectarea;
 	   size_t maxnumobj, erodesize, dilatesize, baseX, baseY;
 	   bool debug;
@@ -180,7 +176,6 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  else throw std::runtime_error("Unsupported module command [" + str + ']');
 	  
 	}
-<<<<<<< HEAD
 	
 	/**
 	  * Tracks cubes with a color filter then restricting object ratio
@@ -234,6 +229,8 @@ class ObjectTracker2018 :  public jevois::StdModule,
       int numobj = 0;
 	  int closestObjX = 0;
 	  int closestObjY = 0;
+	  int closestObjWidth = 0;
+	  int closestObjHeight = 0;
 	  int largestArea = 0;
 	  int rwidth = 0;
 	  // Identify the "good" objects:
@@ -263,57 +260,53 @@ class ObjectTracker2018 :  public jevois::StdModule,
 		     double boxRatio = rwidth/rheight;
 		     
 			 //Enforce bounding box ratio and only take largest box
-			 if(area > largestArea && boxRatio > 0.75 && boxRatio < 1.5 && x != 0 && y != 0)
+			 if(area > largestArea 
+			 /*&& boxRatio > 0.75 Got rid of enforcing this ratio for now. I don't think it's neseccary. 
+			 && boxRatio < 1.5 */
+			 && x != 0 
+			 && y != 0)
 			 {
 			     numobj++;
 			     largestArea = area;
 				 closestObjX = x;
 				 closestObjY = y;
-				 //closestObjWidth = rwidth;
-				 //closestObjHeight = rheight;
+				 closestObjWidth = rwidth;
+				 closestObjHeight = rheight;
 				 //closestObjRatio = boxRatio;
 			 }
 		  }
         }
 		
+		
 		// If there is more than one object
         if(numobj >= 1)
 		{
 		    numobj = 1; // Set to one because we only take largest value
-			
-			signed refX = params.baseX;
-			
-			unsigned int closestObjDist = 960/rwidth; // Calculation for the distance of the object
-		    double error = ((2/w) * closestObjX) - ((2/w) * refX);
-<<<<<<< HEAD
-			
-=======
-			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
-			////unsigned int closestObjAngle = (3.14159265 -(abs(CentClosestObjX / 320) * 0.261799))   //320 pixels at edges is a 15 deg angle
-			////unsinged int closestObjDistance = ClosestObjwidth / 
-			////unsinged int Throw Distance =  (pow((pow(ClosestObjDistance, 2.0)) - (7 * ClosestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.05) - (3.5 * 12))
-			//that was the distance formula  , totally don't worry about it for now, but it checks out
 
->>>>>>> parent of aa33908... more stuff
+			////if CentClosestObjY > -50 && CentClosestObjY < 50  //take distance when object is near center of cameras vision vertically
+			
+			/*Here are all the varaibles that you may need
+			  For the width of the object in pixels, use closestObjWidth
+			  For the height of the object in pixels, use closestObjHeight
+			  For the coordinates of the center of the object, use closestObjX, and closestObjY
+			  use baseWidth and baseDist declared below to use the measurements that you will enter through Putty
+			*/
+			int baseWidth = baseWidthPixels::get();
+			int baseDist = baseDistanceInches::get();
+			
+			unsigned int closestObjAngle = (3.14159265 -(abs(closestObjX / 320) * 0.261799));   //320 pixels at edges is a 15 deg angle
+			unsigned int closestObjDistance = 960 / closestObjWidth;
+			unsigned int throwDist =  (pow((pow(closestObjDistance, 2.0)) - (7 * closestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.05) - (3.5 * 12));
+			//Edit Your Distance Formula ^^^
+
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
 			
-		   // Send serial messages to be parsed later
-		   /*output ="CUBE: " + " w = " + std::to_string(closestObjWidth) +
-		   					  " h = " + std::to_string(closestObjHeight) +
-							  " r = " + std::to_string(closestObjRatio) +
-							  " x = " + std::to_string(closestObjX - refX) +
-							  " y = " + std::to_string(closestObjY - refY) +
-							  " d = " + std::to_string(closestObjDist) +
-							  " e = " + std::to_string(error);*/
-<<<<<<< HEAD
-			output = "CUBE: e = " + std::to_string(error) +
-			         " a = " + std::to_string(largestArea) +
-					 " w = " + std::to_string(rwidth) +
-					 " d = " + std::to_string(closestObjDist);
-=======
-			output = "BALL: e = " + std::to_string(error) +
-			         " a = " + std::to_string(largestArea);
->>>>>>> parent of aa33908... more stuff
+
+			output = "BALL: w = " + std::to_string(closestObjWidth) +
+			         " angle = " + std::to_string(closestObjAngle) +
+					 " dist = " + std::to_string(closestObjDistance) +
+					 " throw dist = " + std::to_string(throwDist);
+
 	   }
 	   
 	    // Possibly wait until all contours are drawn, if they had been requested:
@@ -331,53 +324,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  return output;
 	}
 	
-	/**
-	  * Track the vanishing point on the horizion and give
-	  * the coordinates from the center
-	  */
-	std::string roadNav(jevois::RawImage inimg, jevois::RawImage outimg, unsigned int const w, unsigned int const h)
-	{ 
-	   // Init the output string
-	   std::string output = "";
-	   
-	   // Exit method if not specified to run
-	  if(!roadnav) return output;
-
-       itsProcessingTimer.start();
-      
-       // Convert it to gray:
-       cv::Mat imggray = jevois::rawimage::convertToCvGray(inimg);
-
-       // Compute the vanishing point. Note: the results will be drawn into inimg, so that we don't have to wait for
-       // outimg to be ready. It's ok to modify the input image, its buffer will be sent back to the camera driver for
-       // capture once we are done here, and will be overwritten anyway:
-       itsRoadFinder->process(imggray, outimg);
-	   
-       unsigned short const txtcol = 0xa0ff;
-      
-       // Clear out the bottom section of the image:
-       jevois::rawimage::drawFilledRect(outimg, 0, h, w, outimg.height-h, jevois::yuyv::Black);
-
-       // Get the vanishing point and send to serial:
-       std::pair<Point2D<int>, float> vp = itsRoadFinder->getCurrVanishingPoint();
-      
-       // Write some extra info about the vp:
-	   signed int roadX = vp.first.i;
-	   signed int width = w;
-       std::ostringstream otxt; otxt << std::fixed << std::setprecision(3);
-       otxt << "VP x=" << vp.first.i << " (" << vp.second << ") CTR=" << std::setprecision(1);
-       auto cp = itsRoadFinder->getCurrCenterPoint();
-       auto tp = itsRoadFinder->getCurrTargetPoint();
-       float const tpx = itsRoadFinder->getFilteredTargetX();
-       otxt << cp.i << " TGT=" << tp.i << " fTPX=" << tpx;
-       jevois::rawimage::writeText(outimg, otxt.str().c_str(), 3, h - 13, txtcol);
-	   
-	   // Set the vp to be based aroung the center of the screen
-	   output = "   RN: " + std::to_string(roadX - (width/2)) + "   ";
-	   
-	   // Return the serial output string
-	   return output;
-	}
+	
     
 
     //! Processing function - with USB output
@@ -436,13 +383,10 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  // Run method on thread
 	  auto trackCubeFut = std::async(&ObjectTracker2018::trackCube, this, inimg, outimg, w, h, params);
 	  
-	  // Run method on thread
-	  auto roadNavFut = std::async(&ObjectTracker2018::roadNav, this, inimg, outimg, w, h);
-	
-	  serMessage = "";
-	
-	  if(roadnav) serMessage += roadNavFut.get();
-	  if(trackcube) serMessage += trackCubeFut.get();
+	  // Run method on threa
+
+	  
+	  serMessage = trackCube(inimg, outimg, w, h, params);
 	  
 	  sendSerial(serMessage);
 
