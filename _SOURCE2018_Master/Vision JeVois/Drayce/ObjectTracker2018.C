@@ -69,13 +69,13 @@ JEVOIS_DECLARE_PARAMETER(baseDistanceInches, int, "When you take your baseline m
                          10, ParamCateg);
 
 JEVOIS_DECLARE_PARAMETER(hrange, jevois::Range<unsigned char>, "Range of H values for Cubes",
-                         jevois::Range<unsigned char>( /*default min*/0, /*default max*/60), ParamCateg);
+                         jevois::Range<unsigned char>( /*default min*/152, /*default max*/197), ParamCateg);
 
 JEVOIS_DECLARE_PARAMETER(srange, jevois::Range<unsigned char>, "Range of S values for Cubes",
-                         jevois::Range<unsigned char>(/*default min*/114, /*default max*/195), ParamCateg);
+                         jevois::Range<unsigned char>(/*default min*/0, /*default max*/255), ParamCateg);
 
 JEVOIS_DECLARE_PARAMETER(vrange, jevois::Range<unsigned char>, "Range of V values for Ball",
-                         jevois::Range<unsigned char>(/*default min*/50, /*default max*/255), ParamCateg);
+                         jevois::Range<unsigned char>(/*default min*/0, /*default max*/255), ParamCateg);
 
 // icon by Catalin Fertu in cinema at flaticon
 
@@ -230,13 +230,13 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			//Compute distance
 			unsigned int closestObjAngle = (3.14159265 -(abs(closestObjX / 160) * 0.436332));   //320 pixels at edges is a 25 deg angle
 			unsigned int closestObjDistance = 960 / closestObjWidth;
-			unsigned int throwDist =  (pow((pow(closestObjDistance, 2.0)) - (7 * closestObjDistance * cos(closestObjAngle)) + (12.25 * 12),.5) - (3.5 * 12)+4);
+			unsigned int throwDist =  (pow((pow(closestObjDistance, 2.0)) + 2162.25 - (93 * closestObjDistance * cos(closestObjAngle)),.5) - 42);
 
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
 			
 			//Output String
 			output = "BALL: w = " + std::to_string(closestObjWidth) +
-			         " angle = " + std::to_string(closestObjAngle) +
+			         " angle = " + std::to_string(closestObjAngle * 180 / 3.141592654) +
 					 " dist = " + std::to_string(closestObjDistance) +
 					 " throw dist = " + std::to_string(throwDist);
 
