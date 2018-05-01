@@ -228,20 +228,19 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			bool showThrow = false;
 			
 			//Compute distance
-			unsigned int closestObjAngle = (3.14159265 -(abs(closestObjX / 160) * 0.436332));   //320 pixels at edges is a 25 deg angle
+			 double closestObjAngle = ((abs((closestObjX - 160)/ 160)));   //320 pixels at edges is a 25 deg angle
 			unsigned int closestObjDistance = 960 / closestObjWidth;
 			unsigned int throwDist =  (pow((pow(closestObjDistance, 2.0)) + 2162.25 - (93 * closestObjDistance * cos(closestObjAngle)),.5) - 42);
 
 			jevois::rawimage::drawCircle(outimg, closestObjX, closestObjY, 15, 1, jevois::yuyv::MedPurple); // Draw circle around detected obj
 			
 			//Output String
-			output = "BALL: w = " + std::to_string(closestObjWidth) +
-			         " angle = " + std::to_string(closestObjAngle * 180 / 3.141592654) +
+			output = "BALL: angle = " + std::to_string(closestObjAngle * 180 / 3.141592654) +
 					 " dist = " + std::to_string(closestObjDistance) +
 					 " throw dist = " + std::to_string(throwDist);
 
 			//Print on screen when object is below threshold
-			if(closestObjY  <= -100 && closestObjY >= -150)
+			if(closestObjY  <= 200 && closestObjY >= 150)
 			{
 				showThrow = true;
 				finalDist = throwDist;	
