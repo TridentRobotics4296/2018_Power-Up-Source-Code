@@ -23,6 +23,8 @@ JEVOIS_DECLARE_PARAMETER(lowThreshold, int, "The value for the threshold limit t
 class ObjectTracker2018 :  public jevois::StdModule,
                       public jevois::Parameter<lowThreshold>
 {	
+	Mat output;
+	
 	bool noCube;
 
 	//Colors
@@ -36,7 +38,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	int lowThreshold = 40;
 	int ratio = 3;
 	int kernelSize = 3;
-	int w;
+	int w, h;
 	
 	//Holds channels
 	std::vector<Mat> channels;
@@ -126,7 +128,8 @@ class ObjectTracker2018 :  public jevois::StdModule,
 		else if(lowThreshold - threshDec > 0)
 		{
 		    //Decrease threshold
-			lowThreshold -= threshDec;
+			//lowThreshold -= threshDec;
+			noCube = true;
 		}
 		//If there is not object and we cannot decrease threshold
 		else
@@ -135,6 +138,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 			noCube = true;
 		}
 		
+		drawing.copyTo(output(Rect(0, h/2, w/2, h/2)));
 		return std::to_string(calculateError(x));
 	}
 	
@@ -149,8 +153,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 		//Perform  edge detection on two channels
 		Mat edgesC1 = getEdges(channels[1]);
 		Mat edgesC2 = getEdges(channels[2]);
-		Mat edges;
+		Mat edges, displayEdges;
 		addWeighted(edgesC1, 0.5, edgesC2, 0.5, 0.0, edges);
+		
+		cvtColor(edges, displayEdges, CV_GRAY2RGB);
+		displayEdges.copyTo(output(Rect(w/2, h/2, w/2, h/2)));
 		
 		//Draw the largest contouor
 		xPos = drawContours(edges);
@@ -166,7 +173,7 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  static jevois::Timer timer("processing");
 	  timer.start();
 
-	  Mat labImage;
+	  Mat labImage, abImage;
 	  std::string serMessage = "";
 	  
 	  //Only set the lowThresh to the parameter if the user is actively trying to change it.
@@ -174,9 +181,11 @@ class ObjectTracker2018 :  public jevois::StdModule,
 
 	  // Wait for next available camera image. Any resolution ok, but require YUYV since we assume it for drawings:
       jevois::RawImage inimg = inframe.get(); 
-	  unsigned int const h = inimg.height;
+	  h = inimg.height;
 	  w = inimg.width;
       inimg.require("input", w, h, V4L2_PIX_FMT_YUYV);
+	  
+	  output = Mat(Size(w, h), CV_8UC3);
 
       // While we process it, start a thread to wait for output frame and paste the input image into it:
       jevois::RawImage outimg; // main thread should not use outimg until paste thread is complete
@@ -198,7 +207,14 @@ class ObjectTracker2018 :  public jevois::StdModule,
 	  Mat src = jevois::rawimage::convertToCvBGR(inimg);
 	  cvtColor(src, labImage, CV_BGR2Lab);
 	  split(labImage, channels);
-
+	  
+	  //Remove L channel
+	  channels[0] = 0;
+	  merge(channels, abImage);
+	  
+	  src.copyTo(output(Rect(0, 0, w/2, h/2)));
+	  abImage.copyTo(output(Rect(w/2, h/2, w/2, h/2)));
+	
 	  serMessage = trackCube();
 	  
 	  //Only send the message if we have an object
@@ -210,6 +226,8 @@ class ObjectTracker2018 :  public jevois::StdModule,
       jevois::rawimage::writeText(outimg, fpscpu, 3, h - 23, jevois::yuyv::White);
       
       // Send the output image with our processing results to the host over USB:
+	  cvtColor(output, output, CV_Lab2BGR);
+	  outframe.sendCvBGR(output);
       outframe.send();
     }
 	
